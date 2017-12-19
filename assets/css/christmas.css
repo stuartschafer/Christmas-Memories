@@ -1,0 +1,41 @@
+#tree {
+    width: 80%;
+    height: 500px;
+    margin-left: 10%;
+    margin-top: -38%;
+}
+
+#star {
+    margin-left: 42%;
+}
+
+ .ornamentRow {
+    width: 75px;
+    height: 75px;
+    border-radius: 38px;
+    background-color: red;
+}
+
+#firstOrnament {
+    margin-left: 40%;
+}
+
+#secondOrnament {
+    margin-left: 34%;
+}
+
+#thirdOrnament {
+    margin-left: 28%;
+}
+
+#fourthOrnament {
+    margin-left: 21%;
+}
+
+#fifthOrnament {
+    margin-left: 15%;
+}
+
+#ornament {
+    margin-left: 6%;
+}
