@@ -16,26 +16,26 @@
     background-color: red;
 }
 
-#firstOrnament {
+.firstOrnament {
     margin-left: 40%;
 }
 
-#secondOrnament {
+.secondOrnament {
     margin-left: 34%;
 }
 
-#thirdOrnament {
+.thirdOrnament {
     margin-left: 28%;
 }
 
-#fourthOrnament {
+.fourthOrnament {
     margin-left: 21%;
 }
 
-#fifthOrnament {
+.fifthOrnament {
     margin-left: 15%;
 }
 
-#ornament {
+.otherOrnaments {
     margin-left: 6%;
 }
