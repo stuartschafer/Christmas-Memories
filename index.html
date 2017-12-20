@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <title>CHRISTMAS MEMORY</title>
 
-    <!-- Added a link to Bootstrap-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-    
     <!-- This links to the jQuery Library -->
-    <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+
+    <!-- Added a link to Bootstrap-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> 
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
     <!-- This links the styling CSS sheet -->
     <link rel="stylesheet" type="text/css" href="assets/css/christmas.css">
@@ -22,19 +23,41 @@
 </head>
 <body>
 
+    <!-- Modal -->
+    <div id="modalSection">
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="gridSystemModalLabel">SHOW-ME STAR</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        When the Star is sparkling, click on it to show all pictures briefly.
+                        It will recharge over time.
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" id="modalBtn">Don't Show This Again</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="container">
         <div class="row titleArea">
-            <div class="col-md-12">
+            <div class="col-md-6">
+                <h1>Christmas Memory</h1>
             </div>
+            <div class="col-md-6 text-right"><h3>Incorrect Guesses</h3></div>
         </div>
 
-        <div class="row messages">
-            <div class="col-md-12">
-            </div>
-        </div>
+
 
         <div class="row gameboard">
-            
             <!-- This is just for the star  -->
             <div class="col-md-12 starRow">
                 <img id="star" src="assets/images/star.gif">
@@ -42,42 +65,42 @@
 
             <!-- This row has 2 ornaments  -->
             <div class="col-md-12 topRow">
-                <img class="ornamentRow firstOrnament" id="1">
-                <img class="ornamentRow otherOrnaments" id="2">
+                <img class="ornamentRow firstOrnament clickable" id="1">
+                <img class="ornamentRow otherOrnaments clickable" id="2">
             </div>
 
             <!-- This row has 3 ornaments  -->
             <div class="col-md-12 threeOrns">
-                <img class="ornamentRow secondOrnament" id="3">
-                <img class="ornamentRow otherOrnaments" id="4">
-                <img class="ornamentRow otherOrnaments" id="5">
+                <img class="ornamentRow secondOrnament clickable" id="3">
+                <img class="ornamentRow otherOrnaments clickable" id="4">
+                <img class="ornamentRow otherOrnaments clickable" id="5">
             </div>
 
             <!-- This row has 4 ornaments  -->
             <div class="col-md-12 fourOrns">
-                <img class="ornamentRow thirdOrnament" id="6">
-                <img class="ornamentRow otherOrnaments" id="7">
-                <img class="ornamentRow otherOrnaments" id="8">
-                <img class="ornamentRow otherOrnaments" id="9">
+                <img class="ornamentRow thirdOrnament clickable" id="6">
+                <img class="ornamentRow otherOrnaments clickable" id="7">
+                <img class="ornamentRow otherOrnaments clickable" id="8">
+                <img class="ornamentRow otherOrnaments clickable" id="9">
             </div>
 
             <!-- This row has 5 ornaments  -->
             <div class="col-md-12 fiveOrns">
-                <img class="ornamentRow fourthOrnament" id="10">
-                <img class="ornamentRow otherOrnaments" id="11">
-                <img class="ornamentRow otherOrnaments" id="12">
-                <img class="ornamentRow otherOrnaments" id="13">
-                <img class="ornamentRow otherOrnaments" id="14">
+                <img class="ornamentRow fourthOrnament clickable" id="10">
+                <img class="ornamentRow otherOrnaments clickable" id="11">
+                <img class="ornamentRow otherOrnaments clickable" id="12">
+                <img class="ornamentRow otherOrnaments clickable" id="13">
+                <img class="ornamentRow otherOrnaments clickable" id="14">
             </div>
 
             <!-- This row has 6 ornaments  -->
             <div class="col-md-12 sixOrns">
-                <img class="ornamentRow fifthOrnament" id="15">
-                <img class="ornamentRow otherOrnaments" id="16">
-                <img class="ornamentRow otherOrnaments" id="17">
-                <img class="ornamentRow otherOrnaments" id="18">
-                <img class="ornamentRow otherOrnaments" id="19">
-                <img class="ornamentRow otherOrnaments" id="20">
+                <img class="ornamentRow fifthOrnament clickable" id="15">
+                <img class="ornamentRow otherOrnaments clickable" id="16">
+                <img class="ornamentRow otherOrnaments clickable" id="17">
+                <img class="ornamentRow otherOrnaments clickable" id="18">
+                <img class="ornamentRow otherOrnaments clickable" id="19">
+                <img class="ornamentRow otherOrnaments clickable" id="20">
             </div>
 
             <img id="tree" src="assets/images/tree.png">
