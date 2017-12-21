@@ -97,7 +97,7 @@ $(document).ready(function() {
             playerTime();
             gameStarted = true;
         }
-        
+
         // nextTurn is so the player cannot click on the star and an ornament at the same time
         if (nextTurn === true) {
             if (firstChoice === true) {
@@ -116,8 +116,9 @@ $(document).ready(function() {
                 // This checks to see if the 2 pictures match each other
                 if (firstPic === secondPic) {
                     madeMatch = true;
+                    nextTurn = false;
                     correct++;
-                    time = 100;
+                    time = 200;
                     pauseTime();
                 } else {
                     nextTurn = false;
@@ -136,7 +137,7 @@ $(document).ready(function() {
 
 
 
-
+    // THis is for the stopwatch timer in the upper right corner
     function playerTime() {
         intervalId3 = setInterval(gameStart, 10);
     }
@@ -198,6 +199,8 @@ $(document).ready(function() {
             firstChoice = true;
             clearInterval(intervalId);
         } else if (time === 0 && madeMatch === true) {
+            // console.log(nextTurn);
+            // console.log("~~~~~~~~~~");
             $("#" + firstPicId).off("click");
             $("#" + secondPicId).off("click");
             $("#" + firstPicId).addClass("solved");
@@ -208,6 +211,7 @@ $(document).ready(function() {
             $("#" + secondPicId).removeAttr("id");
             firstChoice = true;
             nextTurn = true;
+            // console.log(nextTurn);
             madeMatch = false;
         }
         time--;
@@ -271,7 +275,7 @@ $(document).ready(function() {
         $("#minute").html("0");
         $("#sec1").html("0");
         $("#sec2").html("0");
-        $("#msecs").html("0");
+        $("#msecs").html("00");
 
         firstChoice = true;
         i = 0;
