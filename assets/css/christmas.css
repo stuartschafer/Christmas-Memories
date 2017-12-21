@@ -1,8 +1,9 @@
 body {
+    z-index: 5;
     background-image: url("../images/background.jpg");
     background-size: cover;
     color: green;
-    font-family: 'Galindo', cursive;
+    /* font-family: 'Galindo', cursive; */
 }
 
 h1 {
@@ -75,11 +76,23 @@ h1 {
     margin-left: -40%;
 }
 
+#timeArea {
+    height: 50px;
+}
+
+#hideTimer {
+    margin-left: 20px;
+}
+
+#msecs {
+    font-size: 35px;
+}
+
 
 
 
 .smallStar {
-        -webkit-animation: 9s;
+        -webkit-animation: 29s;
         animation-fill-mode: forwards;
         animation-name: smallThenBig;
 }

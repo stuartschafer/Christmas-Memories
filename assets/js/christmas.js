@@ -22,10 +22,26 @@ $(document).ready(function() {
     let time2 = 0;
     let starTime = 0;
     let madeMatch = false;
+    let gameTime = 0;
+    let gameOver = null;
+    let milisecond = 0;
+    let leftSec = 0;
+    let rightSec = 0;
+    let minute = 0;
+    let gameStarted = false;
 
-    shuffleColors();
+    shuffleColorsAndImages();
+    
 
     // $('#myModal').modal("toggle");
+
+    $("#showTimer").on("click", function(event) {
+        $("#timeStuff").fadeIn("slow");
+    });
+
+    $("#hideTimer").on("click", function(event) {
+        $("#timeStuff").fadeOut("slow");
+    });
 
     $("#modalBtn").on("click", function(event) {
         $('#myModal').modal("toggle");
@@ -44,14 +60,19 @@ $(document).ready(function() {
     // This displays all pictures for 1.5 seconds
     // It occurs every 30 seconds
     $("#star").on("click", function(event) {
+        // This checks to see if the game has begun. If it hasn't, then the game timer starts
+        if (gameStarted === false) {
+            playerTime();
+            gameStarted = true;
+        }
+
         if (firstChoice === true) {
             nextTurn = false;
             if (starIsRecharged === true) {
                 for (let i=0; i<21; i++) {
                     $("#" + i).attr("src", "assets/images/" + matches[i-1] + ".jpg");
                     $("#" + i).css("transition", "filter .2s");
-                    $("#" + i).css("transition", "all ease-in-out .2s");
-                    
+                    $("#" + i).css("transition", "all ease-in-out .2s"); 
                 }
                 $("#star").css("opacity", "0.2");
                 $("#star").css("transform", "scale(0.01)");
@@ -59,7 +80,7 @@ $(document).ready(function() {
                 $("#star").addClass("smallStar");
                 $("#star").attr("src", "assets/images/stopped_star.gif");
                 $("#star").fadeTo(7000, 1.0);
-                starTime = 900;
+                starTime = 3000;
                 starClicked = "yes";
                 starTimer();
             }
@@ -68,6 +89,12 @@ $(document).ready(function() {
 
     // This is for the ornaments that are clickable
     $(".clickable").on("click", function(event) {
+        // This checks to see if the game has begun. If it hasn't, then the game timer starts
+        if (gameStarted === false) {
+            playerTime();
+            gameStarted = true;
+        }
+        
         
         if (nextTurn === true) {
             if (firstChoice === true) {
@@ -95,10 +122,55 @@ $(document).ready(function() {
                 }
                 
             }
+        } 
+    });
+
+
+
+
+
+
+    function playerTime() {
+        intervalId3 = setInterval(gameStart, 10);
+    }
+
+    function gameStart() {
+        if (gameOver === true) {
+            clearInterval(intervalId3);
+        }
+        if (milisecond === 100) {
+            rightSec++;
+            milisecond = 0;
+        }
+        if (rightSec === 10) {
+            leftSec++;
+            rightSec = 0;
+        }
+        if (leftSec === 6) {
+            minute++;
+            leftSec = 0;
+        }
+        if (milisecond < 10) {
+            $("#msecs").html("0" + milisecond);
+        } else {
+            $("#msecs").html(milisecond);
         }
 
         
-    });
+        $("#sec1").html(leftSec);
+        $("#sec2").html(rightSec);
+        $("#minute").html(minute);
+        milisecond++;
+        gameTime++;
+    }
+
+
+
+
+
+
+
+
 
     // This is the after 2 ornaments are clicked timer
     function pauseTime() {
@@ -134,12 +206,6 @@ $(document).ready(function() {
         time--;
     }
     
-
-
-
-
-
-
     // This is the timer when the STAR is clicked
     function starTimer() {
         intervalId2 = setInterval(starCount, 10);
@@ -148,7 +214,7 @@ $(document).ready(function() {
     function starCount () {
        
         // This turns back all images to colored circles after 2 seconds (time = 900 when run)
-        if (starTime === 750) {
+        if (starTime === 2800) {
             for (let i=0; i<21; i++) {
                 $("#" + i).attr("src", "assets/images/trans.png");
                 $("#" + i).css("background-color", colors[i-1]);
@@ -156,7 +222,7 @@ $(document).ready(function() {
             }
             nextTurn = true;
         } else if (starTime === 0) {
-            console.log("STAR IS RECHARGED");
+            // console.log("STAR IS RECHARGED");
             $('#myModal').modal("toggle");
             $("#star").attr("src", "assets/images/star.gif");
             starIsRecharged = true;
@@ -164,7 +230,7 @@ $(document).ready(function() {
             $("#star").removeClass("smallStar");
             $("#star").css("transform", "scale(1.0)");
             clearInterval(intervalId2);
-            console.log(`nextTurn = ${nextTurn}, starClicked = ${starClicked}, starIsRecharged = ${starIsRecharged}`);
+            // console.log(`nextTurn = ${nextTurn}, starClicked = ${starClicked}, starIsRecharged = ${starIsRecharged}`);
         }
         starTime--;
     }
@@ -189,7 +255,7 @@ $(document).ready(function() {
 
 
 
-    function shuffleColors() {
+    function shuffleColorsAndImages() {
      
         // This shuffles the colors & matches array
         for (i = colors.length - 1; i > 0; i -= 1) {

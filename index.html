@@ -15,7 +15,7 @@
     <link rel="stylesheet" type="text/css" href="assets/css/christmas.css">
 
     <!-- This links the javascript -->
-	<script type="text/javascript" src="assets/js/christmas.js"></script>
+    <script type="text/javascript" src="assets/js/christmas.js"></script>
 
 	<!-- This links the new font -->
 	<!-- <link href="https://fonts.googleapis.com/css?family=Baloo+Tamma|Galindo" rel="stylesheet"> -->
@@ -52,7 +52,21 @@
             <div class="col-md-6">
                 <h1>Christmas Memory</h1>
             </div>
-            <div class="col-md-6 text-right"><h3>Incorrect Guesses</h3></div>
+            <div class="col-md-6 text-right"> 
+                <h1 id="timeArea">
+                    <div id="timeStuff">
+                        <span class="timeStuff" id="minute">0</span>
+                        :
+                        <span class="timeStuff" id="sec1">0</span>
+                        <span class="timeStuff" id="sec2">0</span>
+                        .
+                        <span class="timeStuff" id="msecs">00</span>
+                    </div>
+                </h1>
+                <button type="button" class="btn btn-sm btn-success" id="showTimer">Show Timer</button>
+                <button type="button" class="btn btn-sm btn-danger" id="hideTimer">Hide Timer</button>
+
+            </div>
         </div>
 
 
