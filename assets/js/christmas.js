@@ -30,6 +30,7 @@ $(document).ready(function() {
     let minute = 0;
     let gameStarted = false;
     let correct = 0;
+    let alreadySolved = "no";
 
     $("#playAgain").hide();
 
@@ -92,6 +93,9 @@ $(document).ready(function() {
 
     // This is for the ornaments that are clickable
     $(".clickable").on("click", function(event) {
+
+        alreadySolved = $(this).attr("solved");
+
         // This checks to see if the game has begun. If it hasn't, then the game timer starts
         if (gameStarted === false) {
             playerTime();
@@ -99,7 +103,8 @@ $(document).ready(function() {
         }
 
         // nextTurn is so the player cannot click on the star and an ornament at the same time
-        if (nextTurn === true) {
+        // alreadySolved means the user has already solved that image
+        if (nextTurn === true && alreadySolved === "no") {
             if (firstChoice === true) {
                 firstChoice = false;
                 firstPic = $(this).attr("match");
@@ -199,19 +204,14 @@ $(document).ready(function() {
             firstChoice = true;
             clearInterval(intervalId);
         } else if (time === 0 && madeMatch === true) {
-            // console.log(nextTurn);
-            // console.log("~~~~~~~~~~");
-            $("#" + firstPicId).off("click");
-            $("#" + secondPicId).off("click");
+            $("#" + firstPicId).attr("solved", "yes");
+            $("#" + secondPicId).attr("solved", "yes");
             $("#" + firstPicId).addClass("solved");
             $("#" + secondPicId).addClass("solved");
             $("#" + firstPicId).removeClass("largerImg");
             $("#" + secondPicId).removeClass("largerImg");
-            $("#" + firstPicId).removeAttr("id");
-            $("#" + secondPicId).removeAttr("id");
             firstChoice = true;
             nextTurn = true;
-            // console.log(nextTurn);
             madeMatch = false;
         }
         time--;
@@ -276,6 +276,9 @@ $(document).ready(function() {
         $("#sec1").html("0");
         $("#sec2").html("0");
         $("#msecs").html("00");
+        // $("#1").bind("click");
+        // $("#2").bind("click");
+        
 
         firstChoice = true;
         i = 0;
@@ -303,6 +306,7 @@ $(document).ready(function() {
         minute = 0;
         gameStarted = false;
         correct = 0;
+        alreadySolved = null;
     });
 
 
