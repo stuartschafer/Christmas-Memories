@@ -70,7 +70,8 @@ $(document).ready(function() {
             gameStarted = true;
         }
 
-        if (firstChoice === true) {
+        // This makes sure the user hasn't selected 1 image already and that the game is not over
+        if (firstChoice === true && gameOver === false) {
             nextTurn = false;
             if (starIsRecharged === true) {
                 for (let i=0; i<21; i++) {
