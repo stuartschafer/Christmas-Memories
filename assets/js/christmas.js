@@ -31,6 +31,8 @@ $(document).ready(function() {
     let gameStarted = false;
     let correct = 0;
     let alreadySolved = "no";
+    let midTime = 1000;
+    let rotate = "";
 
     $("#playAgain").hide();
 
@@ -176,6 +178,39 @@ $(document).ready(function() {
         $("#minute").html(minute);
         milisecond++;
         gameTime++;
+        
+        
+        // This part will determine if the tree moves from side to side
+        if (gameTime > midTime && gameTime < (midTime+2)) {
+            let random = Math.floor((Math.random() * 10) + 1);
+            console.log(random);
+            if (random === 7 || random === 8 || random === 9 || random === 10) {
+                if (rotate === "neg45") {
+                    $(".gameboard").addClass("neg45ToBase");
+                    $(".gameboard").removeClass("rotateNeg45");
+                    rotate = "";
+                } else if (rotate === "pos45") {
+                    
+                    $(".gameboard").addClass("pos45ToBase");
+                    $(".gameboard").removeClass("rotatePos45");
+                    rotate = "";
+                } else {
+                    if (random === 7 || random === 8) {
+                        $(".gameboard").removeClass("pos45ToBase");
+                        $(".gameboard").addClass("rotateNeg45");
+                        $(".gameboard").removeClass("neg45ToBase");
+                        rotate = "neg45";
+                    } else if (random === 9 || random === 10) {
+                        $(".gameboard").removeClass("neg45ToBase");
+                        $(".gameboard").addClass("rotatePos45");
+                        $(".gameboard").removeClass("pos45ToBase");
+                        rotate = "pos45";
+                    }
+                }           
+            }
+            midTime = midTime + 1000;
+        }
+
     }
 
 
@@ -267,6 +302,10 @@ $(document).ready(function() {
         console.log(gameTime);
         $("#titleTop").html("YOU WIN!");
         $("#playAgain").fadeIn("slow");
+        $(".gameboard").removeClass("rotateNeg45");
+        $(".gameboard").removeClass("neg45ToBase");
+        $(".gameboard").removeClass("rotatePos45");
+        $(".gameboard").removeClass("pos45ToBase");
     }
 
     $("#playAgain").on("click", function(event) {
@@ -277,9 +316,13 @@ $(document).ready(function() {
         $("#sec1").html("0");
         $("#sec2").html("0");
         $("#msecs").html("00");
-        // $("#1").bind("click");
-        // $("#2").bind("click");
-        
+        for (let i=1; i<21; i++) {
+            $("#" + i).attr("solved", "no");
+            $("#" + i).attr("src", "assets/images/trans.png");
+            $("#" + i).css("background-color", colors[i-1]);
+            $("#" + i).removeClass("solved");
+        }
+        shuffleColorsAndImages();
 
         firstChoice = true;
         i = 0;
@@ -308,6 +351,7 @@ $(document).ready(function() {
         gameStarted = false;
         correct = 0;
         alreadySolved = null;
+        let midTime = 1000;
     });
 
 

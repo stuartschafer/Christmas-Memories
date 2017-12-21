@@ -105,3 +105,69 @@ h1 {
                 -webkit-transform: rotate(359deg) scale(1.0);
 		}
 }
+
+.rotateNeg45 {
+    -webkit-animation: 2s;
+    animation-fill-mode: forwards;
+    animation-name: rotateNeg45;
+}
+
+@-webkit-keyframes rotateNeg45 {
+		from {
+                -webkit-transform: rotate(0deg);
+        }
+		to {
+                -webkit-transform: rotate(-45deg);
+                margin-top: -40%;
+		}
+}
+
+.neg45ToBase {
+    -webkit-animation: 2s;
+    animation-fill-mode: forwards;
+    animation-name: neg45ToBase;
+}
+
+@-webkit-keyframes neg45ToBase {
+		from {
+                -webkit-transform: rotate(-45deg);
+                margin-top: -40%;
+        }
+		to {
+                -webkit-transform: rotate(0deg);
+                margin-top: 0%;
+		}
+}
+
+.rotatePos45 {
+    -webkit-animation: 2s;
+    animation-fill-mode: forwards;
+    animation-name: rotatePos45;
+}
+
+@-webkit-keyframes rotatePos45 {
+		from {
+                -webkit-transform: rotate(0deg);
+        }
+		to {
+                -webkit-transform: rotate(45deg);
+                margin-top: -40%;
+		}
+}
+
+.pos45ToBase {
+    -webkit-animation: 2s;
+    animation-fill-mode: forwards;
+    animation-name: pos45ToBase;
+}
+
+@-webkit-keyframes pos45ToBase {
+		from {
+                -webkit-transform: rotate(45deg);
+                margin-top: -40%;
+        }
+		to {
+                -webkit-transform: rotate(0deg);
+                margin-top: 0%;
+		}
+}
