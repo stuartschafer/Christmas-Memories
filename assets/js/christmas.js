@@ -29,6 +29,9 @@ $(document).ready(function() {
     let rightSec = 0;
     let minute = 0;
     let gameStarted = false;
+    let correct = 0;
+
+    $("#playAgain").hide();
 
     shuffleColorsAndImages();
     
@@ -95,7 +98,7 @@ $(document).ready(function() {
             gameStarted = true;
         }
         
-        
+        // nextTurn is so the player cannot click on the star and an ornament at the same time
         if (nextTurn === true) {
             if (firstChoice === true) {
                 firstChoice = false;
@@ -113,6 +116,7 @@ $(document).ready(function() {
                 // This checks to see if the 2 pictures match each other
                 if (firstPic === secondPic) {
                     madeMatch = true;
+                    correct++;
                     time = 100;
                     pauseTime();
                 } else {
@@ -121,6 +125,9 @@ $(document).ready(function() {
                     pauseTime();
                 }
                 
+                if (correct === 2) {
+                    endGame();
+                }
             }
         } 
     });
@@ -249,7 +256,50 @@ $(document).ready(function() {
 
 
 
+    function endGame() {
+        clearInterval(intervalId3);
+        console.log("YOU WIN!");
+        console.log(gameTime);
+        $("#titleTop").html("YOU WIN!");
+        $("#playAgain").fadeIn("slow");
+    }
 
+    $("#playAgain").on("click", function(event) {
+        // This resets everything to the beginning
+        $("#playAgain").fadeOut("slow");
+        $("#titleTop").html("Merry Christmas");
+        $("#minute").html("0");
+        $("#sec1").html("0");
+        $("#sec2").html("0");
+        $("#msecs").html("0");
+
+        firstChoice = true;
+        i = 0;
+        j = 0;
+        temp = null;
+        temp2 = null;
+        firstPic = "";
+        sencondPic = "";
+        firstPicId = "";
+        secondPicId = "";
+        nextTurn = true;
+        bgcolor1 = "";
+        bgcolor2 = "";
+        starIsRecharged = true;
+        starClicked = "no";
+        time = 0;
+        time2 = 0;
+        starTime = 0;
+        madeMatch = false;
+        gameTime = 0;
+        gameOver = null;
+        milisecond = 0;
+        leftSec = 0;
+        rightSec = 0;
+        minute = 0;
+        gameStarted = false;
+        correct = 0;
+    });
 
 
 
