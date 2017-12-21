@@ -11,6 +11,7 @@ h1 {
 }
                   
 #tree {
+    z-index: 1;
     width: 80%;
     height: 500px;
     margin-left: 10%;
@@ -26,6 +27,14 @@ h1 {
     height: 75px;
     border-radius: 38px;
     background-color: red;
+    transition: filter .2s;
+	transition: all ease-in-out .2s;
+}
+
+.topRow {
+    display: inline !important;
+    float: left;
+    color: white;
 }
 
 .firstOrnament {
@@ -56,7 +65,30 @@ h1 {
     transform: scale(1.3, 1.3);
 }
 
+.solved {
+    border: solid 3px red;
+    opacity: 0.5;
+}
+
 #myModal {
     margin-top: 2%;
     margin-left: -40%;
+}
+
+
+
+
+.smallStar {
+        -webkit-animation: 9s;
+        animation-fill-mode: forwards;
+        animation-name: smallThenBig;
+}
+
+@-webkit-keyframes smallThenBig {
+		from {
+                -webkit-transform: rotate(0deg) scale(0.01);
+        }
+		to {
+                -webkit-transform: rotate(359deg) scale(1.0);
+		}
 }
