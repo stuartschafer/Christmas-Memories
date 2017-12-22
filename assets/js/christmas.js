@@ -33,11 +33,15 @@ $(document).ready(function() {
     let alreadySolved = "no";
     let midTime = 1000;
     let rotate = "";
+    let possibleChoice = "";
+    let possibleChoiceId = "";
+    let possibleChoices = 0;
+    let possibleArray = [];
 
     $("#playAgain").hide();
 
     shuffleColorsAndImages();
-    
+    makeSnowglobes();
 
     // $('#myModal').modal("toggle");
 
@@ -93,6 +97,67 @@ $(document).ready(function() {
             }
         }
     });
+
+
+
+
+
+
+
+
+
+    // This is when the player selects a snowglobe
+    $(".snowglobes").on("click", function(event) {
+        if (firstChoice === false) {
+            // console.log(firstPic);
+            for (let i=0; i<21; i++) {
+                possibleChoice = $("#" + i).attr("match");
+                possibleChoiceId = $("#" + i).attr("id");
+                if (possibleChoice === firstPic && firstPicId != possibleChoiceId) {
+                    showPossibleChoices();
+                }
+                console.log("possibleArray = " + possibleArray);
+            }
+        }
+    });
+
+    function showPossibleChoices() {
+        getRandomNumber();
+        
+        function getRandomNumber() {
+            randomNumber = Math.floor((Math.random() * 10) + 1);
+        }
+
+        alreadyCorrect = $("#" + randomNumber).attr("match");
+        // console.log("alreadyCorrect = " + alreadyCorrect);
+        // console.log("randomNumber = " + randomNumber.toString());
+        // console.log(randomNumber.toString());
+        // console.log(firstPic);
+        // console.log("firstPic = " + firstPic);
+        
+
+        if (randomNumber.toString() === possibleChoice || randomNumber.toString() === firstPic) {
+            showPossibleChoices();
+        } else {
+            let inArray = possibleArray.indexOf(randomNumber);
+            console.log(inArray);
+            
+            // This checks to see if that number is already a possibility
+            if (inArray > -1) {
+               getRandomNumber(); 
+            } else {
+                possibleArray.push(randomNumber);
+                $("#" + possibleChoiceId).addClass("possibility");
+                $("#" + randomNumber).addClass("possibility");
+                possibleChoices++;
+            }
+
+        }
+        if (possibleChoices < 4) {
+            showPossibleChoices();
+        }
+        
+    }
 
     // This is for the ornaments that are clickable
     $(".clickable").on("click", function(event) {
@@ -179,37 +244,39 @@ $(document).ready(function() {
         milisecond++;
         gameTime++;
         
+        // This part works on the snowglobes functionality
+
         
         // This part will determine if the tree moves from side to side
-        if (gameTime > midTime && gameTime < (midTime+2)) {
-            let random = Math.floor((Math.random() * 10) + 1);
-            console.log(random);
-            if (random === 7 || random === 8 || random === 9 || random === 10) {
-                if (rotate === "neg45") {
-                    $(".gameboard").addClass("neg45ToBase");
-                    $(".gameboard").removeClass("rotateNeg45");
-                    rotate = "";
-                } else if (rotate === "pos45") {
+        // if (gameTime > midTime && gameTime < (midTime+2)) {
+        //     let random = Math.floor((Math.random() * 100) + 1);
+        //     console.log(random);
+        //     if (random > 60 && random < 100) {
+        //         if (rotate === "neg45") {
+        //             $(".gameboard").addClass("neg45ToBase");
+        //             $(".gameboard").removeClass("rotateNeg45");
+        //             rotate = "";
+        //         } else if (rotate === "pos45") {
                     
-                    $(".gameboard").addClass("pos45ToBase");
-                    $(".gameboard").removeClass("rotatePos45");
-                    rotate = "";
-                } else {
-                    if (random === 7 || random === 8) {
-                        $(".gameboard").removeClass("pos45ToBase");
-                        $(".gameboard").addClass("rotateNeg45");
-                        $(".gameboard").removeClass("neg45ToBase");
-                        rotate = "neg45";
-                    } else if (random === 9 || random === 10) {
-                        $(".gameboard").removeClass("neg45ToBase");
-                        $(".gameboard").addClass("rotatePos45");
-                        $(".gameboard").removeClass("pos45ToBase");
-                        rotate = "pos45";
-                    }
-                }           
-            }
-            midTime = midTime + 1000;
-        }
+        //             $(".gameboard").addClass("pos45ToBase");
+        //             $(".gameboard").removeClass("rotatePos45");
+        //             rotate = "";
+        //         } else {
+        //             if (random > 60 && random <= 80) {
+        //                 $(".gameboard").removeClass("pos45ToBase");
+        //                 $(".gameboard").addClass("rotateNeg45");
+        //                 $(".gameboard").removeClass("neg45ToBase");
+        //                 rotate = "neg45";
+        //             } else if (random > 80 && random <= 100) {
+        //                 $(".gameboard").removeClass("neg45ToBase");
+        //                 $(".gameboard").addClass("rotatePos45");
+        //                 $(".gameboard").removeClass("pos45ToBase");
+        //                 rotate = "pos45";
+        //             }
+        //         }           
+        //     }
+        //     midTime = midTime + 200;
+        // }
 
     }
 
@@ -269,7 +336,6 @@ $(document).ready(function() {
             }
             nextTurn = true;
         } else if (starTime === 0) {
-            // console.log("STAR IS RECHARGED");
             $('#myModal').modal("toggle");
             $("#star").attr("src", "assets/images/star.gif");
             starIsRecharged = true;
@@ -277,7 +343,6 @@ $(document).ready(function() {
             $("#star").removeClass("smallStar");
             $("#star").css("transform", "scale(1.0)");
             clearInterval(intervalId2);
-            // console.log(`nextTurn = ${nextTurn}, starClicked = ${starClicked}, starIsRecharged = ${starIsRecharged}`);
         }
         starTime--;
     }
@@ -351,7 +416,10 @@ $(document).ready(function() {
         gameStarted = false;
         correct = 0;
         alreadySolved = null;
-        let midTime = 1000;
+        midTime = 1000;
+        possibleChoice = "";
+        possibleChoices = 0;
+        possibleArray = [];
     });
 
 
@@ -375,7 +443,12 @@ $(document).ready(function() {
         for (let i=1; i<colors.length+1; i++) {
             $("#" + i).css("background-color", colors[i-1]);
             $("#" + i).attr("match", matches[i-1]);
+        } 
+    }
+
+    function makeSnowglobes() {
+        for (let i=1; i<6; i++) {
+            $("#snowglobeSection").append('<img class="snowglobes" id="snowglobe' + i + '" used="no" src="assets/images/snowglobe.png">');
         }
-        
     }
 });
