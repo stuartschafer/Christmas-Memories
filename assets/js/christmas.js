@@ -36,7 +36,11 @@ $(document).ready(function() {
     let possibleChoice = "";
     let possibleChoiceId = "";
     let possibleChoices = 0;
+    let matchingId = 0;
     let possibleArray = [];
+    let inArray = 0;
+    let randomNumber = 0;
+    let checkifMatched = "";
 
     $("#playAgain").hide();
 
@@ -109,55 +113,49 @@ $(document).ready(function() {
     // This is when the player selects a snowglobe
     $(".snowglobes").on("click", function(event) {
         if (firstChoice === false) {
-            // console.log(firstPic);
-            for (let i=0; i<21; i++) {
-                possibleChoice = $("#" + i).attr("match");
-                possibleChoiceId = $("#" + i).attr("id");
-                if (possibleChoice === firstPic && firstPicId != possibleChoiceId) {
-                    showPossibleChoices();
+            let matchNum = $("#" + firstPicId).attr("match");
+            // console.log(matchNum);
+
+            for (let i=1; i<21; i++) {
+                let checkForMatchNum = $("#" + i).attr("match");
+                
+                if (checkForMatchNum === matchNum) {
+                    matchingId = $("#" + i).attr("id");
+                    // console.log(matchingId);
+                    $("#" + i).addClass("possibility");
+                    possibleArray.push(matchingId);
                 }
-                console.log("possibleArray = " + possibleArray);
             }
-        }
-    });
-
-    function showPossibleChoices() {
-        getRandomNumber();
-        
-        function getRandomNumber() {
-            randomNumber = Math.floor((Math.random() * 10) + 1);
-        }
-
-        alreadyCorrect = $("#" + randomNumber).attr("match");
-        // console.log("alreadyCorrect = " + alreadyCorrect);
-        // console.log("randomNumber = " + randomNumber.toString());
-        // console.log(randomNumber.toString());
-        // console.log(firstPic);
-        // console.log("firstPic = " + firstPic);
-        
-
-        if (randomNumber.toString() === possibleChoice || randomNumber.toString() === firstPic) {
-            showPossibleChoices();
-        } else {
-            let inArray = possibleArray.indexOf(randomNumber);
-            console.log(inArray);
             
-            // This checks to see if that number is already a possibility
-            if (inArray > -1) {
-               getRandomNumber(); 
+            addOtherPossibleChoices();
+        }
+
+        function addOtherPossibleChoices() {
+            randomNumber = Math.floor((Math.random() * 20) + 1);
+            inArray = possibleArray.indexOf(randomNumber.toString());
+            // console.log("~~~~~~~~~~~~");
+            // console.log("in Array");
+            // console.log(inArray);
+            // console.log(possibleArray.indexOf(randomNumber));
+            
+            checkifMatched = $("#" + randomNumber).attr("solved");
+
+            if (inArray > -1 || checkifMatched === "yes") {
+                addOtherPossibleChoices();
             } else {
-                possibleArray.push(randomNumber);
-                $("#" + possibleChoiceId).addClass("possibility");
                 $("#" + randomNumber).addClass("possibility");
+                possibleArray.push(randomNumber.toString());
+                // console.log(possibleArray);
                 possibleChoices++;
             }
 
+            if (possibleChoices < 4) {
+                addOtherPossibleChoices();
+            }
         }
-        if (possibleChoices < 4) {
-            showPossibleChoices();
-        }
-        
-    }
+        possibleArray = [];
+        possibleChoices = 0;
+    });
 
     // This is for the ornaments that are clickable
     $(".clickable").on("click", function(event) {
@@ -199,7 +197,7 @@ $(document).ready(function() {
                     pauseTime();
                 }
                 
-                if (correct === 2) {
+                if (correct === 10) {
                     endGame();
                 }
             }
@@ -303,6 +301,9 @@ $(document).ready(function() {
             $("#" + secondPicId).css("background-color", colors[secondPicId-1]);
             $("#" + firstPicId).removeClass("largerImg");
             $("#" + secondPicId).removeClass("largerImg");
+            for (let i=1; i<21; i++) {
+                $("#" + i).removeClass("possibility");
+            }
             nextTurn = true;
             firstChoice = true;
             clearInterval(intervalId);
@@ -313,6 +314,9 @@ $(document).ready(function() {
             $("#" + secondPicId).addClass("solved");
             $("#" + firstPicId).removeClass("largerImg");
             $("#" + secondPicId).removeClass("largerImg");
+            for (let i=1; i<21; i++) {
+                $("#" + i).removeClass("possibility");
+            }
             firstChoice = true;
             nextTurn = true;
             madeMatch = false;
@@ -419,6 +423,7 @@ $(document).ready(function() {
         midTime = 1000;
         possibleChoice = "";
         possibleChoices = 0;
+        matchingId = 0;
         possibleArray = [];
     });
 
