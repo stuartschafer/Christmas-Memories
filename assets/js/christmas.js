@@ -42,6 +42,7 @@ $(document).ready(function() {
     let randomNumber = 0;
     let checkifMatched = "";
     let clickedonSnowglobe = false;
+    let startingSnowglobes = 5;
 
     $("#playAgain").hide();
 
@@ -105,10 +106,23 @@ $(document).ready(function() {
 
     // This is when the player selects a snowglobe (possible selections will be narrowed for the player)
     $(".snowglobes").on("click", function(event) {
-        console.log(clickedonSnowglobe);
-        if (clickedonSnowglobe === false) {
+        if (clickedonSnowglobe === false && firstChoice === false) {
             clickedonSnowglobe = true;
-            console.log(clickedonSnowglobe);
+            let whichGlobe = $(this).attr("id");
+            // $("#" + whichGlobe).fadeOut("slow");
+            $("#" + whichGlobe).addClass("shakeGlobe");
+            $("#" + whichGlobe).delay(200).fadeOut(3000);
+            // if (startingSnowglobes === 5) {
+            //     $("#snowglobeSection").css("margin-left", "30.5%");
+            // } else if (startingSnowglobes === 4) {
+            //     $("#snowglobeSection").css("margin-left", "36.5%");
+            // } else if (startingSnowglobes === 3) {
+            //     $("#snowglobeSection").css("margin-left", "41.5%");
+            // } else if (startingSnowglobes === 2) {
+            //     $("#snowglobeSection").css("margin-left", "45.5%");
+            // }
+            
+            startingSnowglobes--;
             givethePlayerChoices();
         }
     });
@@ -201,7 +215,7 @@ $(document).ready(function() {
                     pauseTime();
                 }
                 
-                if (correct === 10) {
+                if (correct === 2) {
                     endGame();
                 }
             }
@@ -373,6 +387,7 @@ $(document).ready(function() {
 
     function endGame() {
         clearInterval(intervalId3);
+        $(".snowglobes").fadeIn("slow");
         console.log("YOU WIN!");
         console.log(gameTime);
         $("#titleTop").html("YOU WIN!");
@@ -391,13 +406,13 @@ $(document).ready(function() {
         $("#sec1").html("0");
         $("#sec2").html("0");
         $("#msecs").html("00");
+        $(".snowglobes").removeClass("shakeGlobe");
         for (let i=1; i<21; i++) {
             $("#" + i).attr("solved", "no");
             $("#" + i).attr("src", "assets/images/trans.png");
             $("#" + i).css("background-color", colors[i-1]);
             $("#" + i).removeClass("solved");
         }
-        shuffleColorsAndImages();
 
         firstChoice = true;
         i = 0;
@@ -432,6 +447,9 @@ $(document).ready(function() {
         matchingId = 0;
         possibleArray = [];
         clickedonSnowglobe = false;
+        startingSnowglobes = 5;
+
+        shuffleColorsAndImages();
     });
 
 
@@ -459,7 +477,7 @@ $(document).ready(function() {
     }
 
     function makeSnowglobes() {
-        for (let i=1; i<6; i++) {
+        for (let i=1; i<startingSnowglobes+1; i++) {
             $("#snowglobeSection").append('<img class="snowglobes" id="snowglobe' + i + '" used="no" src="assets/images/snowglobe.png">');
         }
     }
