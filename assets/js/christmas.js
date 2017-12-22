@@ -102,42 +102,26 @@ $(document).ready(function() {
         }
     });
 
-
-
-
-
-
-
-
-
-    // This is when the player selects a snowglobe
+    // This is when the player selects a snowglobe (possible selections will be narrowed for the player)
     $(".snowglobes").on("click", function(event) {
-        if (firstChoice === false) {
+        if (firstChoice === false && correct < 9) {
             let matchNum = $("#" + firstPicId).attr("match");
-            // console.log(matchNum);
 
             for (let i=1; i<21; i++) {
                 let checkForMatchNum = $("#" + i).attr("match");
                 
                 if (checkForMatchNum === matchNum) {
                     matchingId = $("#" + i).attr("id");
-                    // console.log(matchingId);
                     $("#" + i).addClass("possibility");
                     possibleArray.push(matchingId);
                 }
             }
-            
             addOtherPossibleChoices();
         }
 
         function addOtherPossibleChoices() {
             randomNumber = Math.floor((Math.random() * 20) + 1);
             inArray = possibleArray.indexOf(randomNumber.toString());
-            // console.log("~~~~~~~~~~~~");
-            // console.log("in Array");
-            // console.log(inArray);
-            // console.log(possibleArray.indexOf(randomNumber));
-            
             checkifMatched = $("#" + randomNumber).attr("solved");
 
             if (inArray > -1 || checkifMatched === "yes") {
@@ -145,11 +129,20 @@ $(document).ready(function() {
             } else {
                 $("#" + randomNumber).addClass("possibility");
                 possibleArray.push(randomNumber.toString());
-                // console.log(possibleArray);
                 possibleChoices++;
             }
 
-            if (possibleChoices < 4) {
+            // 5 selections
+            if (possibleChoices < 4 && correct <= 2) {
+                addOtherPossibleChoices();
+            // 4 selections
+            } else if (possibleChoices < 3 && correct >= 3 && correct <=5) {
+                addOtherPossibleChoices();
+            // 3 selections
+            } else if (possibleChoices < 2 && correct >= 6 && correct <=7) {
+                addOtherPossibleChoices();
+            // 2 selections
+            } else if (possibleChoices < 1 && correct === 8) {
                 addOtherPossibleChoices();
             }
         }
