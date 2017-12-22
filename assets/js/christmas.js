@@ -41,6 +41,7 @@ $(document).ready(function() {
     let inArray = 0;
     let randomNumber = 0;
     let checkifMatched = "";
+    let clickedonSnowglobe = false;
 
     $("#playAgain").hide();
 
@@ -104,6 +105,15 @@ $(document).ready(function() {
 
     // This is when the player selects a snowglobe (possible selections will be narrowed for the player)
     $(".snowglobes").on("click", function(event) {
+        console.log(clickedonSnowglobe);
+        if (clickedonSnowglobe === false) {
+            clickedonSnowglobe = true;
+            console.log(clickedonSnowglobe);
+            givethePlayerChoices();
+        }
+    });
+
+    function givethePlayerChoices() {
         if (firstChoice === false && correct < 9) {
             let matchNum = $("#" + firstPicId).attr("match");
 
@@ -148,7 +158,8 @@ $(document).ready(function() {
         }
         possibleArray = [];
         possibleChoices = 0;
-    });
+    }
+    
 
     // This is for the ornaments that are clickable
     $(".clickable").on("click", function(event) {
@@ -297,6 +308,7 @@ $(document).ready(function() {
             for (let i=1; i<21; i++) {
                 $("#" + i).removeClass("possibility");
             }
+            clickedonSnowglobe = false;
             nextTurn = true;
             firstChoice = true;
             clearInterval(intervalId);
@@ -310,6 +322,7 @@ $(document).ready(function() {
             for (let i=1; i<21; i++) {
                 $("#" + i).removeClass("possibility");
             }
+            clickedonSnowglobe = false;
             firstChoice = true;
             nextTurn = true;
             madeMatch = false;
@@ -418,6 +431,7 @@ $(document).ready(function() {
         possibleChoices = 0;
         matchingId = 0;
         possibleArray = [];
+        clickedonSnowglobe = false;
     });
 
 
