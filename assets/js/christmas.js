@@ -133,10 +133,15 @@ $(document).ready(function() {
 
             for (let i=1; i<21; i++) {
                 let checkForMatchNum = $("#" + i).attr("match");
+                let checkifSamePic = $("#" + i).attr("id");
                 
                 if (checkForMatchNum === matchNum) {
                     matchingId = $("#" + i).attr("id");
                     $("#" + i).addClass("possibility");
+                    if (checkifSamePic != firstPicId) {
+                        $("#" + i).attr("src", "assets/images/questionmark.gif");
+                    }
+                    
                     possibleArray.push(matchingId);
                 }
             }
@@ -152,6 +157,8 @@ $(document).ready(function() {
                 addOtherPossibleChoices();
             } else {
                 $("#" + randomNumber).addClass("possibility");
+                $("#" + randomNumber).attr("src", "assets/images/questionmark.gif");
+
                 possibleArray.push(randomNumber.toString());
                 possibleChoices++;
             }
@@ -321,6 +328,9 @@ $(document).ready(function() {
             $("#" + secondPicId).removeClass("largerImg");
             for (let i=1; i<21; i++) {
                 $("#" + i).removeClass("possibility");
+                if (i != firstPicId) {
+                    $("#" + i).attr("src", "assets/images/trans.png");
+                }  
             }
             clickedonSnowglobe = false;
             nextTurn = true;
@@ -335,6 +345,13 @@ $(document).ready(function() {
             $("#" + secondPicId).removeClass("largerImg");
             for (let i=1; i<21; i++) {
                 $("#" + i).removeClass("possibility");
+                if (i != firstPicId) {
+                    $("#" + i).attr("src", "assets/images/trans.png");
+                } 
+                if (i.toString() === secondPicId) {
+                    let firstSrc = $("#" + firstPicId).attr("src");
+                    $("#" + i).attr("src", firstSrc);
+                }
             }
             clickedonSnowglobe = false;
             firstChoice = true;
