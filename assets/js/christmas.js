@@ -45,6 +45,7 @@ $(document).ready(function() {
     let startingSnowglobes = 5;
 
     $("#playAgain").hide();
+    $(".snowballs").hide();
 
     shuffleColorsAndImages();
     makeSnowglobes();
@@ -272,35 +273,35 @@ $(document).ready(function() {
 
         
         // This part will determine if the tree moves from side to side
-        // if (gameTime > midTime && gameTime < (midTime+2)) {
-        //     let random = Math.floor((Math.random() * 100) + 1);
-        //     console.log(random);
-        //     if (random > 60 && random < 100) {
-        //         if (rotate === "neg45") {
-        //             $(".gameboard").addClass("neg45ToBase");
-        //             $(".gameboard").removeClass("rotateNeg45");
-        //             rotate = "";
-        //         } else if (rotate === "pos45") {
+        if (gameTime > midTime && gameTime < (midTime+2)) {
+            let random = Math.floor((Math.random() * 100) + 1);
+            console.log(random);
+            if (random > 60 && random < 100) {
+                if (rotate === "neg45") {
+                    $(".gameboard").addClass("neg45ToBase");
+                    $(".gameboard").removeClass("rotateNeg45");
+                    rotate = "";
+                } else if (rotate === "pos45") {
                     
-        //             $(".gameboard").addClass("pos45ToBase");
-        //             $(".gameboard").removeClass("rotatePos45");
-        //             rotate = "";
-        //         } else {
-        //             if (random > 60 && random <= 80) {
-        //                 $(".gameboard").removeClass("pos45ToBase");
-        //                 $(".gameboard").addClass("rotateNeg45");
-        //                 $(".gameboard").removeClass("neg45ToBase");
-        //                 rotate = "neg45";
-        //             } else if (random > 80 && random <= 100) {
-        //                 $(".gameboard").removeClass("neg45ToBase");
-        //                 $(".gameboard").addClass("rotatePos45");
-        //                 $(".gameboard").removeClass("pos45ToBase");
-        //                 rotate = "pos45";
-        //             }
-        //         }           
-        //     }
-        //     midTime = midTime + 200;
-        // }
+                    $(".gameboard").addClass("pos45ToBase");
+                    $(".gameboard").removeClass("rotatePos45");
+                    rotate = "";
+                } else {
+                    if (random > 60 && random <= 80) {
+                        $(".gameboard").removeClass("pos45ToBase");
+                        $(".gameboard").addClass("rotateNeg45");
+                        $(".gameboard").removeClass("neg45ToBase");
+                        rotate = "neg45";
+                    } else if (random > 80 && random <= 100) {
+                        $(".gameboard").removeClass("neg45ToBase");
+                        $(".gameboard").addClass("rotatePos45");
+                        $(".gameboard").removeClass("pos45ToBase");
+                        rotate = "pos45";
+                    }
+                }           
+            }
+            midTime = midTime + 200;
+        }
 
     }
 
@@ -466,6 +467,8 @@ $(document).ready(function() {
         possibleArray = [];
         clickedonSnowglobe = false;
         startingSnowglobes = 5;
+
+        $(".snowballs").hide();
 
         shuffleColorsAndImages();
     });
