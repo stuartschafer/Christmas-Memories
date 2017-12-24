@@ -23,7 +23,7 @@ $(document).ready(function() {
     let starTime = 0;
     let madeMatch = false;
     let gameTime = 0;
-    let gameOver = null;
+    let gameOver = false;
     let milisecond = 0;
     let leftSec = 0;
     let rightSec = 0;
@@ -81,15 +81,16 @@ $(document).ready(function() {
             playerTime();
             gameStarted = true;
         }
-
+        console.log(firstChoice);
+        console.log(gameOver);
         // This makes sure the user hasn't selected 1 image already and that the game is not over
         if (firstChoice === true && gameOver === false) {
             nextTurn = false;
             if (starIsRecharged === true) {
                 for (let i=0; i<21; i++) {
                     $("#" + i).attr("src", "assets/images/" + matches[i-1] + ".jpg");
-                    $("#" + i).css("transition", "filter .2s");
-                    $("#" + i).css("transition", "all ease-in-out .2s"); 
+                    // $("#" + i).css("transition", "filter .2s all ease-in-out .2s");
+                    // $("#" + i).css("transition", "all ease-in-out .2s"); 
                 }
                 $("#star").css("opacity", "0.2");
                 $("#star").css("transform", "scale(0.01)");
@@ -450,7 +451,7 @@ $(document).ready(function() {
         starTime = 0;
         madeMatch = false;
         gameTime = 0;
-        gameOver = null;
+        gameOver = false;
         milisecond = 0;
         leftSec = 0;
         rightSec = 0;
