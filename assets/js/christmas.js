@@ -31,7 +31,8 @@ $(document).ready(function() {
     let gameStarted = false;
     let correct = 0;
     let alreadySolved = "no";
-    let midTime = 1000;
+    let treeMoveTime = 1000;
+    let snowglobeTime = 200;
     let rotate = "";
     let possibleChoice = "";
     let possibleChoiceId = "";
@@ -43,9 +44,11 @@ $(document).ready(function() {
     let checkifMatched = "";
     let clickedonSnowglobe = false;
     let startingSnowglobes = 5;
+    let snowball = false;
 
     $("#playAgain").hide();
-    $(".snowballs").hide();
+    // $("#snowball1").addClass("snowglobeIntro");
+    
 
     shuffleColorsAndImages();
     makeSnowglobes();
@@ -82,16 +85,12 @@ $(document).ready(function() {
             playerTime();
             gameStarted = true;
         }
-        console.log(firstChoice);
-        console.log(gameOver);
         // This makes sure the user hasn't selected 1 image already and that the game is not over
         if (firstChoice === true && gameOver === false) {
             nextTurn = false;
             if (starIsRecharged === true) {
                 for (let i=0; i<21; i++) {
                     $("#" + i).attr("src", "assets/images/" + matches[i-1] + ".jpg");
-                    // $("#" + i).css("transition", "filter .2s all ease-in-out .2s");
-                    // $("#" + i).css("transition", "all ease-in-out .2s"); 
                 }
                 $("#star").css("opacity", "0.2");
                 $("#star").css("transform", "scale(0.01)");
@@ -270,13 +269,55 @@ $(document).ready(function() {
         gameTime++;
         
         // This part works on the snowglobes functionality
-
+        if (gameTime > snowglobeTime && gameTime < (snowglobeTime+2)) {
+            
+            let random1 = Math.floor((Math.random() * 100) + 1);
+            console.log(random1);
+            if (snowball === false) {
+                $(".snowballs").removeClass("snowglobeIntroFromLeft snowglobeIntroFromRight snowglobeIntroFromTop meltAway");
+                switch (true) {
+                    case random1 >= 99:
+                        $("#snowball1").addClass("snowglobeIntroFromTop");
+                        snowball = true;
+                    break;
+                    case random1 >= 98:
+                        $("#snowball2").addClass("snowglobeIntroFromRight");
+                        snowball = true;
+                    break;
+                    case random1 >= 4:
+                        $("#snowball3").addClass("snowglobeIntroFromLeft");
+                        snowball = true;
+                    break;
+                    case random1 >= 3:
+                        $("#snowball4").addClass("snowglobeIntroFromRight");
+                        snowball = true;
+                    break;
+                    case random1 >= 2:
+                        $("#snowball5").addClass("snowglobeIntroFromTop");
+                        snowball = true;
+                    break;
+                    case random1 >= 1:
+                        $("#snowball6").addClass("snowglobeIntroFromLeft");
+                        snowball = true;
+                    break;
+                }
+            } else {
+                // $(".snowballs").removeClass("snowglobeIntro");
+                $(".snowballs").addClass("meltAway");
+                
+                snowball = false;
+                
+            }
+            snowglobeTime = snowglobeTime + 800;
+               
+            
+        }
         
         // This part will determine if the tree moves from side to side
-        if (gameTime > midTime && gameTime < (midTime+2)) {
-            let random = Math.floor((Math.random() * 100) + 1);
-            console.log(random);
-            if (random > 60 && random < 100) {
+        if (gameTime > treeMoveTime && gameTime < (treeMoveTime+2)) {
+            let random2 = Math.floor((Math.random() * 100) + 1);
+            console.log("tree rotate = " + random2);
+            if (random2 > 60 && random2 < 100) {
                 if (rotate === "neg45") {
                     $(".gameboard").addClass("neg45ToBase");
                     $(".gameboard").removeClass("rotateNeg45");
@@ -287,12 +328,12 @@ $(document).ready(function() {
                     $(".gameboard").removeClass("rotatePos45");
                     rotate = "";
                 } else {
-                    if (random > 60 && random <= 80) {
+                    if (random2 > 60 && random2 <= 80) {
                         $(".gameboard").removeClass("pos45ToBase");
                         $(".gameboard").addClass("rotateNeg45");
                         $(".gameboard").removeClass("neg45ToBase");
                         rotate = "neg45";
-                    } else if (random > 80 && random <= 100) {
+                    } else if (random2 > 80 && random2 <= 100) {
                         $(".gameboard").removeClass("neg45ToBase");
                         $(".gameboard").addClass("rotatePos45");
                         $(".gameboard").removeClass("pos45ToBase");
@@ -300,7 +341,7 @@ $(document).ready(function() {
                     }
                 }           
             }
-            midTime = midTime + 200;
+            treeMoveTime = treeMoveTime + 200;
         }
 
     }
@@ -460,13 +501,15 @@ $(document).ready(function() {
         gameStarted = false;
         correct = 0;
         alreadySolved = null;
-        midTime = 1000;
+        treeMoveTime = 1000;
+        snowglobeTime = 200;
         possibleChoice = "";
         possibleChoices = 0;
         matchingId = 0;
         possibleArray = [];
         clickedonSnowglobe = false;
         startingSnowglobes = 5;
+        snowball = false;
 
         $(".snowballs").hide();
 

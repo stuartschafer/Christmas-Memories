@@ -1,6 +1,6 @@
 body {
     background-image: url("../images/background.jpg");
-    background-size: cover;
+    background-size: 150%;
     color: green;
     /* font-family: 'Galindo', cursive; */
 }
@@ -11,6 +11,8 @@ h1 {
 }
                   
 #tree {
+    position: relative;
+    z-index: -100;
     width: 80%;
     height: 500px;
     margin-left: 10%;
@@ -84,6 +86,10 @@ h1 {
     font-size: 35px;
 }
 
+.ornaments {
+    position: relative;
+}
+
 .snowglobes {
     height: 100%;
     margin-right: 4%;
@@ -101,11 +107,14 @@ h1 {
 }
 
 .snowballs {
-    position: relative;
+    position: static;
+    z-index: 100;
     width: 13.5%;
+    visibility: hidden;
 }
 
 #snowball1 {
+    z-index: 200;
     margin-top: -68%;
     margin-left: 43%;
 }
@@ -116,13 +125,13 @@ h1 {
 }
 
 #snowball3 {
-    margin-top: -44%;
-    margin-left: 11.5%;
+    margin-top: -47%;
+    margin-left: 56.5%;
 }
 
 #snowball4 {
     margin-top: -23%;
-    margin-left: 18.5%;
+    margin-left: -52%;
 }
 
 #snowball5 {
@@ -135,42 +144,71 @@ h1 {
     margin-left: 11.5%;
 }
 
-.ornaments {
-
-}
 
 
 
 
 
-.shakeGlobe {
-        -webkit-animation: 0.12s;
-        animation-fill-mode: forwards;
-        animation-iteration-count: 10;
-        animation-name: shakeGlobe;
-}
-
-
-@keyframes shakeGlobe {
-    from {
-        -webkit-transform: rotate(0deg); 
-    }
-    25% {
-        -webkit-transform: rotate(45deg);
-    }
-    50% {
-        -webkit-transform: rotate(0deg);
-    }
-    75% {
-        -webkit-transform: rotate(-45deg);
-    }
-    to {
-        -webkit-transform: rotate(-0deg);
-    }
-}
 
 
 /* ANIMATIONS */
+
+.snowglobeIntroFromLeft {
+    visibility: visible;
+    -webkit-animation: snowglobeIntroFromLeft 4s forwards;
+}
+
+@keyframes snowglobeIntroFromLeft {
+    0% {  transform: translateX(-2000%) rotate(0deg); }
+    100% { transform: translateX(0%) rotate(1440deg); }
+}
+
+.snowglobeIntroFromRight {
+    visibility: visible;
+    -webkit-animation: snowglobeIntroFromRight 4s forwards;
+}
+
+@keyframes snowglobeIntroFromRight {
+    0% {  transform: translateX(2000%) rotate(0deg); }
+    100% { transform: translateX(0%) rotate(-1440deg); }
+}
+
+.snowglobeIntroFromTop {
+    visibility: visible;
+    -webkit-animation: snowglobeIntroFromTop 4s forwards;
+}
+
+@keyframes snowglobeIntroFromTop {
+    0% { transform: translateY(-2000%) rotate(0deg); }
+    100% { transform: translateY(0%) rotate(-1440deg); }
+}
+
+.meltAway {
+    -webkit-animation: 4s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    animation-name: meltAway;
+}
+
+@keyframes meltAway {
+    from { -webkit-transform: rotate(0deg) scale(1); }
+    to { -webkit-transform: rotate(1440deg) scale(0); }
+}
+
+.shakeGlobe {
+    -webkit-animation: 0.12s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 10;
+    animation-name: shakeGlobe;
+}
+
+@keyframes shakeGlobe {
+    from { -webkit-transform: rotate(0deg);  }
+    25% { -webkit-transform: rotate(45deg); }
+    50% { -webkit-transform: rotate(0deg); }
+    75% { -webkit-transform: rotate(-45deg); }
+    to { -webkit-transform: rotate(-0deg); }
+}
 
 .smallStar {
         -webkit-animation: 29s;
@@ -179,12 +217,8 @@ h1 {
 }
 
 @-webkit-keyframes smallThenBig {
-		from {
-                -webkit-transform: rotate(0deg) scale(0.01);
-        }
-		to {
-                -webkit-transform: rotate(359deg) scale(1.0);
-		}
+	from { -webkit-transform: rotate(0deg) scale(0.01); }
+	to { -webkit-transform: rotate(359deg) scale(1.0);}
 }
 
 .rotateNeg45 {
@@ -194,13 +228,8 @@ h1 {
 }
 
 @-webkit-keyframes rotateNeg45 {
-		from {
-                -webkit-transform: rotate(0deg);
-        }
-		to {
-                -webkit-transform: rotate(-45deg);
-                /* margin-top: -40%; */
-		}
+	from { -webkit-transform: rotate(0deg); }
+	to { -webkit-transform: rotate(-30deg); }
 }
 
 .neg45ToBase {
@@ -210,14 +239,8 @@ h1 {
 }
 
 @-webkit-keyframes neg45ToBase {
-		from {
-                -webkit-transform: rotate(-45deg);
-                /* margin-top: -40%; */
-        }
-		to {
-                -webkit-transform: rotate(0deg);
-                /* margin-top: 0%; */
-		}
+	from { -webkit-transform: rotate(-30deg); }
+	to { -webkit-transform: rotate(0deg); }
 }
 
 .rotatePos45 {
@@ -227,13 +250,8 @@ h1 {
 }
 
 @-webkit-keyframes rotatePos45 {
-		from {
-                -webkit-transform: rotate(0deg);
-        }
-		to {
-                -webkit-transform: rotate(45deg);
-                /* margin-top: -40%; */
-		}
+    from { -webkit-transform: rotate(0deg); }
+    to { -webkit-transform: rotate(30deg); }
 }
 
 .pos45ToBase {
@@ -243,12 +261,6 @@ h1 {
 }
 
 @-webkit-keyframes pos45ToBase {
-		from {
-                -webkit-transform: rotate(45deg);
-                /* margin-top: -40%; */
-        }
-		to {
-                -webkit-transform: rotate(0deg);
-                /* margin-top: 0%; */
-		}
+	from { -webkit-transform: rotate(30deg); }
+	to { -webkit-transform: rotate(0deg); }
 }
