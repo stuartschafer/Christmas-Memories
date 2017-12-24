@@ -47,7 +47,8 @@ $(document).ready(function() {
     let snowball = false;
 
     $("#playAgain").hide();
-    // $("#snowball1").addClass("snowglobeIntro");
+    // Testing for the snowball position
+    // $("#snowball6").addClass("snowglobeIntroFromLeft");
     
 
     shuffleColorsAndImages();
