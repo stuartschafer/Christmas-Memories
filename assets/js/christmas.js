@@ -512,7 +512,7 @@ $(document).ready(function() {
         startingSnowglobes = 5;
         snowball = false;
 
-        $(".snowballs").hide();
+        $(".snowballs").removeClass("snowglobeIntroFromLeft snowglobeIntroFromRight snowglobeIntroFromTop meltAway");
 
         shuffleColorsAndImages();
     });
