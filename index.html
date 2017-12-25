@@ -30,12 +30,27 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="gridSystemModalLabel">SHOW-ME STAR</h4>
+                        <h4 class="modal-title" id="gridSystemModalLabel">Show-Me Star & Snowglobes</h4>
                     </div>
 
                     <div class="modal-body">
                         When the Star is sparkling, click on it to show all pictures briefly.
                         It will recharge over time.  It can only be used when no images have been selected.
+                        <br><br>
+                        The snowglobes will show you possible matches with the ornament you have selected.
+                        Can only be activated once an ornament is selected.
+                        <br><br>
+                        Difficulty levels are:
+                        <br>
+                        1 - Basic memory game, 5 snowglobes and Show-Me star are activated
+                        <br>
+                        2 - Add in random snowballs that will cover up partial pictures
+                        <br>
+                        3 - Snowballs have a higher chance of occuring more often
+                        <br>
+                        4 - Along with snowballs, the tree will rotate at random
+                        <br>
+                        5- BOTH Snowballs and Tree rotation happen more often
                     </div>
 
                     <div class="modal-footer">
@@ -53,6 +68,20 @@
                 <h1>
                     <span id="titleTop">Christmas Memory</span>
                 </h1>
+                <div id="chooseDiff">
+                    <div id="cardSelection">
+                        Choose Card Pack...
+                        <button type="button" class="btn btn-sm btn-danger cardPack" id="christmas" cardPackExt=".jpg">Christmas</button>
+                        <button type="button" class="btn btn-sm btn-danger cardPack" id="jennyandme" cardPackExt=".jpg">Jenny and Myself</button>
+                        <br>
+                    </div>
+                    Choose Difficulty...
+                    <button type="button" class="btn btn-sm btn-success difficulty" id="level1">LVL 1</button>
+                    <button type="button" class="btn btn-sm btn-success difficulty" id="level2">LVL 2</button>
+                    <button type="button" class="btn btn-sm btn-success difficulty" id="level3">LVL 3</button>
+                    <button type="button" class="btn btn-sm btn-success difficulty" id="level4">LVL 4</button>
+                    <button type="button" class="btn btn-sm btn-success difficulty" id="level5">LVL 5</button>
+                </div>
                 <button type="button" class="btn btn-sm btn-primary" id="playAgain">Play Again?</button>
             </div>
             <div class="col-md-6 text-right"> 

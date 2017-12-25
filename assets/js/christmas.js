@@ -5,6 +5,7 @@ $(document).ready(function() {
         "salmon", "deeppink", "firebrick", "black", "lightskyblue"];
     let matches = [1,2,3,4,5,6,7,8,9,10,10,9,8,7,6,5,4,3,2,1];
     let firstChoice = true;
+    let difficultyChosen = null;
     let i = 0;
     let j = 0;
     let temp = null;
@@ -31,8 +32,10 @@ $(document).ready(function() {
     let gameStarted = false;
     let correct = 0;
     let alreadySolved = "no";
-    let treeMoveTime = 1000;
-    let snowglobeTime = 200;
+    let treeMoveTime = 0;
+    let addToTreeTime = 0;
+    let snowballTime = 0;
+    let addToSnowballTime = 0;
     let rotate = "";
     let possibleChoice = "";
     let possibleChoiceId = "";
@@ -45,6 +48,9 @@ $(document).ready(function() {
     let clickedonSnowglobe = false;
     let startingSnowglobes = 5;
     let snowball = false;
+    let cardPack = "christmas";
+    let cardPackExt = ".jpg";
+
 
     $("#playAgain").hide();
     // Testing for the snowball position
@@ -62,6 +68,53 @@ $(document).ready(function() {
 
     $("#hideTimer").on("click", function(event) {
         $("#timeStuff").fadeOut("slow");
+    });
+
+    // This is for the cardPack selection
+    $(".cardPack").on("click", function(event) {
+        $(".cardPack").fadeOut("slow");
+        cardPack = $(this).attr("id");
+        cardPackExt = $(this).attr("cardPackExt");
+    });
+
+    // This is for the difficulty selection
+    $(".difficulty").on("click", function(event) {
+        difficultyChosen = true;
+        $("#chooseDiff").fadeOut("slow");
+        let difficulty = $(this).attr("id");
+        switch (true) {
+            // No tree movement & No snowballs
+            case difficulty === "level1":
+                treeMoveTime = 9999999999;
+                snowballTime = 9999999999;
+                break;
+            // No tree movement, BUT snowballs
+            case difficulty === "level2":
+                treeMoveTime = 9999999999;
+                snowballTime = 700;
+                addToSnowballTime = 700;
+                break;
+            // No tree movement, BUT snowballs happen more often
+            case difficulty === "level3":
+                treeMoveTime = 9999999999;
+                snowballTime = 700;
+                addToSnowballTime = 350;
+                break;
+            // Tree movement & snowballs
+            case difficulty === "level4":
+                treeMoveTime = 1500;
+                addToTreeTime = 1500;
+                snowballTime = 700;
+                addToSnowballTime = 700;
+                break;
+            // Tree movement BUT snowballs AND tree movement happen more often
+            case difficulty === "level5":
+                treeMoveTime = 1500;
+                addToTreeTime = 750;
+                snowballTime = 700;
+                addToSnowballTime = 350;
+                break;
+        }
     });
 
     $("#modalBtn").on("click", function(event) {
@@ -82,16 +135,16 @@ $(document).ready(function() {
     // It occurs every 30 seconds
     $("#star").on("click", function(event) {
         // This checks to see if the game has begun. If it hasn't, then the game timer starts
-        if (gameStarted === false) {
+        if (gameStarted === false && difficultyChosen === true) {
             playerTime();
             gameStarted = true;
         }
         // This makes sure the user hasn't selected 1 image already and that the game is not over
-        if (firstChoice === true && gameOver === false) {
+        if (firstChoice === true && gameOver === false && difficultyChosen === true) {
             nextTurn = false;
             if (starIsRecharged === true) {
                 for (let i=0; i<21; i++) {
-                    $("#" + i).attr("src", "assets/images/" + matches[i-1] + ".jpg");
+                    $("#" + i).attr("src", "assets/images/" + cardPack + matches[i-1] + cardPackExt);
                 }
                 $("#star").css("opacity", "0.2");
                 $("#star").css("transform", "scale(0.01)");
@@ -186,49 +239,51 @@ $(document).ready(function() {
 
     // This is for the ornaments that are clickable
     $(".clickable").on("click", function(event) {
+        // console.log(difficultyChosen);
+        if (difficultyChosen === true) {
+            alreadySolved = $(this).attr("solved");
 
-        alreadySolved = $(this).attr("solved");
+            // This checks to see if the game has begun. If it hasn't, then the game timer starts
+            if (gameStarted === false) {
+                playerTime();
+                gameStarted = true;
+            }
 
-        // This checks to see if the game has begun. If it hasn't, then the game timer starts
-        if (gameStarted === false) {
-            playerTime();
-            gameStarted = true;
-        }
+            // nextTurn is so the player cannot click on the star and an ornament at the same time
+            // alreadySolved means the user has already solved that image
+            if (nextTurn === true && alreadySolved === "no") {
+                if (firstChoice === true) {
+                    firstChoice = false;
+                    firstPic = $(this).attr("match");
+                    firstPicId = $(this).attr("id");
+                    $("#" + firstPicId).attr("src", "assets/images/" + cardPack + firstPic + cardPackExt);
+                    $("#" + firstPicId).addClass("largerImg");
 
-        // nextTurn is so the player cannot click on the star and an ornament at the same time
-        // alreadySolved means the user has already solved that image
-        if (nextTurn === true && alreadySolved === "no") {
-            if (firstChoice === true) {
-                firstChoice = false;
-                firstPic = $(this).attr("match");
-                firstPicId = $(this).attr("id");
-                $("#" + firstPicId).attr("src", "assets/images/" + firstPic + ".jpg");
-                $("#" + firstPicId).addClass("largerImg");
-
-            } else {
-                secondPic = $(this).attr("match");
-                secondPicId = $(this).attr("id");
-                $("#" + secondPicId).attr("src", "assets/images/" + secondPic + ".jpg");
-                $("#" + secondPicId).addClass("largerImg");
-                
-                // This checks to see if the 2 pictures match each other
-                if (firstPic === secondPic) {
-                    madeMatch = true;
-                    nextTurn = false;
-                    correct++;
-                    time = 200;
-                    pauseTime();
                 } else {
-                    nextTurn = false;
-                    time = 200;
-                    pauseTime();
-                }
-                
-                if (correct === 2) {
-                    endGame();
+                    secondPic = $(this).attr("match");
+                    secondPicId = $(this).attr("id");
+                    $("#" + secondPicId).attr("src", "assets/images/" + cardPack + secondPic + cardPackExt);
+                    $("#" + secondPicId).addClass("largerImg");
+                    
+                    // This checks to see if the 2 pictures match each other
+                    if (firstPic === secondPic) {
+                        madeMatch = true;
+                        nextTurn = false;
+                        correct++;
+                        time = 200;
+                        pauseTime();
+                    } else {
+                        nextTurn = false;
+                        time = 200;
+                        pauseTime();
+                    }
+                    
+                    if (correct === 10) {
+                        endGame();
+                    }
                 }
             }
-        } 
+        }
     });
 
 
@@ -270,10 +325,10 @@ $(document).ready(function() {
         gameTime++;
         
         // This part works on the snowglobes functionality
-        if (gameTime > snowglobeTime && gameTime < (snowglobeTime+2)) {
+        if (gameTime > snowballTime && gameTime < (snowballTime+2)) {
             
             let random1 = Math.floor((Math.random() * 100) + 1);
-            console.log(random1);
+            // console.log(random1);
             if (snowball === false) {
                 $(".snowballs").removeClass("snowglobeIntroFromLeft snowglobeIntroFromRight snowglobeIntroFromTop meltAway");
                 switch (true) {
@@ -309,7 +364,7 @@ $(document).ready(function() {
                 snowball = false;
                 
             }
-            snowglobeTime = snowglobeTime + 800;
+            snowballTime = snowballTime + addToSnowballTime;
                
             
         }
@@ -317,7 +372,7 @@ $(document).ready(function() {
         // This part will determine if the tree moves from side to side
         if (gameTime > treeMoveTime && gameTime < (treeMoveTime+2)) {
             let random2 = Math.floor((Math.random() * 100) + 1);
-            console.log("tree rotate = " + random2);
+            // console.log("tree rotate = " + random2);
             if (random2 > 60 && random2 < 100) {
                 if (rotate === "neg45") {
                     $(".gameboard").addClass("neg45ToBase");
@@ -342,7 +397,7 @@ $(document).ready(function() {
                     }
                 }           
             }
-            treeMoveTime = treeMoveTime + 200;
+            treeMoveTime = treeMoveTime + addToTreeTime;
         }
 
     }
@@ -361,9 +416,11 @@ $(document).ready(function() {
     }
 
     function count () {
+        console.log(time);
         // console.log(`nextTurn = ${nextTurn}, starClicked = ${starClicked}, starIsRecharged = ${starIsRecharged}`);
         // When 2 ornaments are clicked and they DO NOT match
         if (time === 0 && nextTurn === false && madeMatch === false) {
+            clearInterval(intervalId);
             $("#" + firstPicId).attr("src", "assets/images/trans.png");
             $("#" + secondPicId).attr("src", "assets/images/trans.png");
             $("#" + firstPicId).css("background-color", colors[firstPicId-1]);
@@ -371,16 +428,17 @@ $(document).ready(function() {
             $("#" + firstPicId).removeClass("largerImg");
             $("#" + secondPicId).removeClass("largerImg");
             for (let i=1; i<21; i++) {
+                let solvedImg = $("#" + i).attr("solved");
                 $("#" + i).removeClass("possibility");
-                if (i != firstPicId) {
+                if (i != firstPicId && solvedImg === "no") {
                     $("#" + i).attr("src", "assets/images/trans.png");
                 }  
             }
             clickedonSnowglobe = false;
             nextTurn = true;
             firstChoice = true;
-            clearInterval(intervalId);
         } else if (time === 0 && madeMatch === true) {
+            clearInterval(intervalId);
             $("#" + firstPicId).attr("solved", "yes");
             $("#" + secondPicId).attr("solved", "yes");
             $("#" + firstPicId).addClass("solved");
@@ -388,8 +446,9 @@ $(document).ready(function() {
             $("#" + firstPicId).removeClass("largerImg");
             $("#" + secondPicId).removeClass("largerImg");
             for (let i=1; i<21; i++) {
+                let solvedImg = $("#" + i).attr("solved");
                 $("#" + i).removeClass("possibility");
-                if (i != firstPicId) {
+                if (i != firstPicId && solvedImg === "no") {
                     $("#" + i).attr("src", "assets/images/trans.png");
                 } 
                 if (i.toString() === secondPicId) {
@@ -436,16 +495,6 @@ $(document).ready(function() {
 
 
 
-
-
-
-
-
-
-
-
-
-
     function endGame() {
         clearInterval(intervalId3);
         $(".snowglobes").fadeIn("slow");
@@ -462,6 +511,8 @@ $(document).ready(function() {
     $("#playAgain").on("click", function(event) {
         // This resets everything to the beginning
         $("#playAgain").fadeOut("slow");
+        $(".cardPack").fadeIn("slow");
+        $("#chooseDiff").fadeIn("slow");
         $("#titleTop").html("Merry Christmas");
         $("#minute").html("0");
         $("#sec1").html("0");
@@ -502,8 +553,10 @@ $(document).ready(function() {
         gameStarted = false;
         correct = 0;
         alreadySolved = null;
-        treeMoveTime = 1000;
-        snowglobeTime = 200;
+        treeMoveTime = 0;
+        addToTreeTime = 0;
+        snowballTime = 0;
+        addToSnowballTime = 0
         possibleChoice = "";
         possibleChoices = 0;
         matchingId = 0;
@@ -511,6 +564,8 @@ $(document).ready(function() {
         clickedonSnowglobe = false;
         startingSnowglobes = 5;
         snowball = false;
+        cardPack = "christmas";
+        cardPackExt = ".jpg";
 
         $(".snowballs").removeClass("snowglobeIntroFromLeft snowglobeIntroFromRight snowglobeIntroFromTop meltAway");
 
