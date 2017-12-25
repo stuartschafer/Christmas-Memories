@@ -72,7 +72,7 @@ $(document).ready(function() {
 
     // This is for the cardPack selection
     $(".cardPack").on("click", function(event) {
-        $(".cardPack").fadeOut("slow");
+        $(".cardPack").css("visibility", "hidden");
         cardPack = $(this).attr("id");
         cardPackExt = $(this).attr("cardPackExt");
     });
@@ -80,7 +80,7 @@ $(document).ready(function() {
     // This is for the difficulty selection
     $(".difficulty").on("click", function(event) {
         difficultyChosen = true;
-        $("#chooseDiff").fadeOut("slow");
+        $("#chooseDiff").css("visibility", "hidden");
         let difficulty = $(this).attr("id");
         switch (true) {
             // No tree movement & No snowballs
@@ -511,8 +511,8 @@ $(document).ready(function() {
     $("#playAgain").on("click", function(event) {
         // This resets everything to the beginning
         $("#playAgain").fadeOut("slow");
-        $(".cardPack").fadeIn("slow");
-        $("#chooseDiff").fadeIn("slow");
+        $(".cardPack").css("visibility", "visible");
+        $("#chooseDiff").css("visibility", "visible");
         $("#titleTop").html("Merry Christmas");
         $("#minute").html("0");
         $("#sec1").html("0");

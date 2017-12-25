@@ -117,6 +117,10 @@ h1 {
     width: 5%;
 }
 
+#chooseDiff {
+    height: 70px;
+}
+
 .possibility {
     transform: scale(1.3, 1.3);
 }
