@@ -1,9 +1,6 @@
 $(document).ready(function() {
-    let colors = ["red", "blue", "white", "yellow", "orange",
-        "purple", "aqua", "chartreuse", "mistyrose", "grey",
-        "fuchsia", "gold", "pink", "magenta", "navy",
-        "salmon", "deeppink", "firebrick", "black", "lightskyblue"];
     let matches = [1,2,3,4,5,6,7,8,9,10,10,9,8,7,6,5,4,3,2,1];
+    let ornRotate = [0,18,36,54,72,90,108,126,144,162,180,198,216,234,252,270,288,306,324,342];
     let firstChoice = true;
     let difficultyChosen = null;
     let i = 0;
@@ -15,8 +12,6 @@ $(document).ready(function() {
     let firstPicId = "";
     let secondPicId = "";
     let nextTurn = true;
-    let bgcolor1 = "";
-    let bgcolor2 = "";
     let starIsRecharged = true;
     let starClicked = "no";
     let time = 0;
@@ -50,6 +45,9 @@ $(document).ready(function() {
     let snowball = false;
     let cardPack = "christmas/";
     let cardPackExt = ".jpg";
+    let firstPicRotate = "";
+    let secondPicRotate = "";
+    let solvedImg = "";
 
 
     $("#playAgain").css("visibility", "hidden");
@@ -57,10 +55,10 @@ $(document).ready(function() {
     // $("#snowball6").addClass("snowglobeIntroFromLeft");
     
 
-    shuffleColorsAndImages();
+    shuffleImagesAndRotations();
     makeSnowglobes();
 
-    $('#myModal').modal("toggle");
+    // $('#myModal').modal("toggle");
 
     $("#showTimer").on("click", function(event) {
         $("#timeStuff").css("visibility", "visible");
@@ -81,6 +79,7 @@ $(document).ready(function() {
     $(".difficulty").on("click", function(event) {
         difficultyChosen = true;
         $("#chooseDiff").css("visibility", "hidden");
+        $("#cardPackSelection").css("visibility", "hidden");
         let difficulty = $(this).attr("id");
         switch (true) {
             // No tree movement & No snowballs
@@ -102,16 +101,16 @@ $(document).ready(function() {
                 break;
             // Tree movement & snowballs
             case difficulty === "level4":
-                treeMoveTime = 1500;
-                addToTreeTime = 1500;
+                treeMoveTime = 500;
+                addToTreeTime = 500;
                 snowballTime = 700;
                 addToSnowballTime = 700;
                 break;
             // Tree movement BUT snowballs AND tree movement happen more often
             case difficulty === "level5":
-                treeMoveTime = 1500;
-                addToTreeTime = 750;
-                snowballTime = 700;
+                treeMoveTime = 400;
+                addToTreeTime = 400;
+                snowballTime = 350;
                 addToSnowballTime = 350;
                 break;
         }
@@ -131,11 +130,11 @@ $(document).ready(function() {
         
     });
 
-    // This displays all pictures for 1.5 seconds
-    // It occurs every 30 seconds
+    // This displays all pictures for .2 seconds
+    // It occurs every 20 seconds
     $("#star").on("click", function(event) {
         // This checks to see if the game has begun. If it hasn't, then the game timer starts
-        if (gameStarted === false && difficultyChosen === true) {
+        if (gameStarted === false && difficultyChosen === true && starIsRecharged === true) {
             playerTime();
             gameStarted = true;
         }
@@ -143,9 +142,14 @@ $(document).ready(function() {
         if (firstChoice === true && gameOver === false && difficultyChosen === true) {
             nextTurn = false;
             if (starIsRecharged === true) {
+                starIsRecharged = false;
                 for (let i=0; i<21; i++) {
                     $("#" + i).addClass("largerImg");
-                    $("#" + i).attr("src", "assets/images/cardsets/" + cardPack + matches[i-1] + cardPackExt);
+                    solvedImg = $("#" + i).attr("solved");
+                    if (solvedImg === "no") {
+                        $("#" + i).attr("src", "assets/images/cardsets/" + cardPack + matches[i-1] + cardPackExt);
+                        $("#" + i).css("transform", "rotate(" + ornRotate[i-1] + "deg) scale(1.5)");
+                    }
                 }
                 $("#star").css("opacity", "0.2");
                 $("#star").css("transform", "scale(0.01)");
@@ -153,7 +157,7 @@ $(document).ready(function() {
                 $("#star").addClass("smallStar");
                 $("#star").attr("src", "assets/images/stopped_star.gif");
                 $("#star").fadeTo(7000, 1.0);
-                starTime = 3000;
+                starTime = 2000;
                 starClicked = "yes";
                 starTimer();
             }
@@ -257,15 +261,18 @@ $(document).ready(function() {
                     firstChoice = false;
                     firstPic = $(this).attr("match");
                     firstPicId = $(this).attr("id");
-                    console.log("assets/images/cardsets/" + cardPack + firstPic + cardPackExt);
+                    firstPicRotate = $(this).attr("rotate");
                     $("#" + firstPicId).attr("src", "assets/images/cardsets/" + cardPack + firstPic + cardPackExt);
                     $("#" + firstPicId).addClass("largerImg");
+                    $("#" + firstPicId).css("transform", "rotate(" + firstPicRotate + "deg) scale(1.5)");
 
                 } else {
                     secondPic = $(this).attr("match");
                     secondPicId = $(this).attr("id");
+                    secondPicRotate = $(this).attr("rotate");
                     $("#" + secondPicId).attr("src", "assets/images/cardsets/" + cardPack + secondPic + cardPackExt);
                     $("#" + secondPicId).addClass("largerImg");
+                    $("#" + secondPicId).css("transform", "rotate(" + secondPicRotate + "deg) scale(1.5)");
                     
                     // This checks to see if the 2 pictures match each other
                     if (firstPic === secondPic) {
@@ -334,27 +341,27 @@ $(document).ready(function() {
             if (snowball === false) {
                 $(".snowballs").removeClass("snowglobeIntroFromLeft snowglobeIntroFromRight snowglobeIntroFromTop meltAway");
                 switch (true) {
-                    case random1 >= 99:
+                    case random1 >= 90:
                         $("#snowball1").addClass("snowglobeIntroFromTop");
                         snowball = true;
                     break;
-                    case random1 >= 98:
+                    case random1 >= 80:
                         $("#snowball2").addClass("snowglobeIntroFromRight");
                         snowball = true;
                     break;
-                    case random1 >= 4:
+                    case random1 >= 70:
                         $("#snowball3").addClass("snowglobeIntroFromLeft");
                         snowball = true;
                     break;
-                    case random1 >= 3:
+                    case random1 >= 60:
                         $("#snowball4").addClass("snowglobeIntroFromRight");
                         snowball = true;
                     break;
-                    case random1 >= 2:
+                    case random1 >= 50:
                         $("#snowball5").addClass("snowglobeIntroFromTop");
                         snowball = true;
                     break;
-                    case random1 >= 1:
+                    case random1 >= 40:
                         $("#snowball6").addClass("snowglobeIntroFromLeft");
                         snowball = true;
                     break;
@@ -375,7 +382,7 @@ $(document).ready(function() {
         if (gameTime > treeMoveTime && gameTime < (treeMoveTime+2)) {
             let random2 = Math.floor((Math.random() * 100) + 1);
             // console.log("tree rotate = " + random2);
-            if (random2 > 60 && random2 < 100) {
+            if (random2 > 50 && random2 < 100) {
                 if (rotate === "neg45") {
                     $(".gameboard").addClass("neg45ToBase");
                     $(".gameboard").removeClass("rotateNeg45");
@@ -386,12 +393,12 @@ $(document).ready(function() {
                     $(".gameboard").removeClass("rotatePos45");
                     rotate = "";
                 } else {
-                    if (random2 > 60 && random2 <= 80) {
+                    if (random2 > 50 && random2 <= 75) {
                         $(".gameboard").removeClass("pos45ToBase");
                         $(".gameboard").addClass("rotateNeg45");
                         $(".gameboard").removeClass("neg45ToBase");
                         rotate = "neg45";
-                    } else if (random2 > 80 && random2 <= 100) {
+                    } else if (random2 > 75 && random2 <= 100) {
                         $(".gameboard").removeClass("neg45ToBase");
                         $(".gameboard").addClass("rotatePos45");
                         $(".gameboard").removeClass("pos45ToBase");
@@ -418,22 +425,22 @@ $(document).ready(function() {
     }
 
     function count () {
-        console.log(time);
+        // console.log(time);
         // console.log(`nextTurn = ${nextTurn}, starClicked = ${starClicked}, starIsRecharged = ${starIsRecharged}`);
         // When 2 ornaments are clicked and they DO NOT match
         if (time === 0 && nextTurn === false && madeMatch === false) {
             clearInterval(intervalId);
-            // $("#" + firstPicId).css("background-color", colors[firstPicId-1]);
-            // $("#" + secondPicId).css("background-color", colors[secondPicId-1]);
             $("#" + firstPicId).removeClass("largerImg");
             $("#" + secondPicId).removeClass("largerImg");
-            $("#" + firstPicId).attr("src", "assets/images/ornament.jpg");
-            $("#" + secondPicId).attr("src", "assets/images/ornament.jpg");
+            $("#" + firstPicId).attr("src", "assets/images/ornament.png");
+            $("#" + secondPicId).attr("src", "assets/images/ornament.png");
+            $("#" + firstPicId).css("transform", "rotate(" + firstPicRotate + "deg) scale(1.0)");
+            $("#" + secondPicId).css("transform", "rotate(" + secondPicRotate + "deg) scale(1.0)");
             for (let i=1; i<21; i++) {
-                let solvedImg = $("#" + i).attr("solved");
+                solvedImg = $("#" + i).attr("solved");
                 $("#" + i).removeClass("possibility");
                 if (i != firstPicId && solvedImg === "no") {
-                    $("#" + i).attr("src", "assets/images/ornament.jpg");
+                    $("#" + i).attr("src", "assets/images/ornament.png");
                 }  
             }
             clickedonSnowglobe = false;
@@ -447,11 +454,13 @@ $(document).ready(function() {
             $("#" + secondPicId).addClass("solved");
             $("#" + firstPicId).removeClass("largerImg");
             $("#" + secondPicId).removeClass("largerImg");
+            $("#" + firstPicId).css("transform", "rotate(" + firstPicRotate + "deg) scale(1.0)");
+            $("#" + secondPicId).css("transform", "rotate(" + secondPicRotate + "deg) scale(1.0)");
             for (let i=1; i<21; i++) {
-                let solvedImg = $("#" + i).attr("solved");
+                solvedImg = $("#" + i).attr("solved");
                 $("#" + i).removeClass("possibility");
                 if (i != firstPicId && solvedImg === "no") {
-                    $("#" + i).attr("src", "assets/images/ornament.jpg");
+                    $("#" + i).attr("src", "assets/images/ornament.png");
                 }
                 if (i.toString() === secondPicId) {
                     let firstSrc = $("#" + firstPicId).attr("src");
@@ -473,18 +482,20 @@ $(document).ready(function() {
 
     function starCount () {
        
-        // This turns back all images to colored circles after 2 seconds (time = 900 when run)
-        if (starTime === 2800) {
+        // This turns back all images to ornaments after .3 seconds (time = 1970 when they go back to ornament)
+        if (starTime === 1970) {
             for (let i=1; i<21; i++) {
                 $("#" + i).removeClass("largerImg");
-                let solvedImg = $("#" + i).attr("solved");
+                solvedImg = $("#" + i).attr("solved");
                 if (solvedImg === "no") {
-                    $("#" + i).attr("src", "assets/images/ornament.jpg");
+                    $("#" + i).attr("src", "assets/images/ornament.png");
+                    $("#" + i).css("transform", "rotate(" + ornRotate[i-1] + "deg)");
                 }
             }
             nextTurn = true;
         } else if (starTime === 0) {
-            $('#myModal').modal("toggle");
+            
+            // $('#myModal').modal("toggle");
             $("#star").attr("src", "assets/images/star.gif");
             starIsRecharged = true;
             starClicked = "no";
@@ -492,6 +503,7 @@ $(document).ready(function() {
             $("#star").css("transform", "scale(1.0)");
             clearInterval(intervalId2);
         }
+        // console.log(starTime);
         starTime--;
     }
 
@@ -502,7 +514,7 @@ $(document).ready(function() {
     function endGame() {
         clearInterval(intervalId3);
         $(".snowglobes").fadeIn("slow");
-        $("#titleTop").html("YOU WIN!");
+        // $("#titleTop").html("YOU WIN!");
         $("#playAgain").css("visibility", "visible");
         $(".gameboard").removeClass("rotateNeg45");
         $(".gameboard").removeClass("neg45ToBase");
@@ -515,7 +527,7 @@ $(document).ready(function() {
         $("#playAgain").css("visibility", "hidden");
         $("#cardPackSelection").css("visibility", "visible");
         $("#chooseDiff").css("visibility", "visible");
-        $("#titleTop").html("Merry Christmas");
+        // $("#titleTop").html("Merry Christmas");
         $("#minute").html("0");
         $("#sec1").html("0");
         $("#sec2").html("0");
@@ -523,11 +535,11 @@ $(document).ready(function() {
         $(".snowglobes").removeClass("shakeGlobe");
         for (let i=1; i<21; i++) {
             $("#" + i).attr("solved", "no");
-            $("#" + i).attr("src", "assets/images/trans.png");
-            $("#" + i).css("background-color", colors[i-1]);
+            $("#" + i).attr("src", "assets/images/ornament.png");
+            $("#" + i).css("transform", "rotate(" + ornRotate[i-1] + "deg)");
             $("#" + i).removeClass("solved");
         }
-
+        difficultyChosen = false;
         firstChoice = true;
         i = 0;
         j = 0;
@@ -538,8 +550,6 @@ $(document).ready(function() {
         firstPicId = "";
         secondPicId = "";
         nextTurn = true;
-        bgcolor1 = "";
-        bgcolor2 = "";
         starIsRecharged = true;
         starClicked = "no";
         time = 0;
@@ -566,36 +576,36 @@ $(document).ready(function() {
         clickedonSnowglobe = false;
         startingSnowglobes = 5;
         snowball = false;
-        cardPack = "christmas";
+        cardPack = "christmas/";
         cardPackExt = ".jpg";
 
         $(".snowballs").removeClass("snowglobeIntroFromLeft snowglobeIntroFromRight snowglobeIntroFromTop meltAway");
 
-        shuffleColorsAndImages();
+        shuffleImagesAndRotations();
     });
 
 
 
 
 
-    function shuffleColorsAndImages() {
+    function shuffleImagesAndRotations() {
      
-        // This shuffles the colors & matches array
-        for (i = colors.length - 1; i > 0; i -= 1) {
+        // This shuffles the images and rotations properties
+        for (i = matches.length - 1; i > 0; i -= 1) {
             j = Math.floor(Math.random() * (i + 1))
-            temp = colors[i];
+            temp = ornRotate[i];
             temp2 = matches[i];
-            colors[i] = colors[j];
+            ornRotate[i] = ornRotate[j];
             matches[i] = matches[j];
-            colors[j] = temp;
+            ornRotate[j] = temp;
             matches[j] = temp2;
         }
 
-        // This assigns each color on the board
-        for (let i=1; i<colors.length+1; i++) {
-            // $("#" + i).css("background-color", colors[i-1]);
-            // $("#" + i).css("src", "assets/images/ornament.jpg");
+        // This assigns each matching pair and cassigns a rotation for each
+        for (let i=1; i<matches.length+1; i++) {
             $("#" + i).attr("match", matches[i-1]);
+            $("#" + i).attr("rotate", ornRotate[i-1]);
+            $("#" + i).css("transform", "rotate(" + ornRotate[i-1] + "deg)");
         } 
     }
 
