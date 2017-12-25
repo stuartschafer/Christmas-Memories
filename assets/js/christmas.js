@@ -72,7 +72,7 @@ $(document).ready(function() {
 
     // This is for the cardPack selection
     $(".cardPack").on("click", function(event) {
-        $(".cardPack").css("visibility", "hidden");
+        $("#cardPackSelection").css("visibility", "hidden");
         cardPack = $(this).attr("id");
         cardPackExt = $(this).attr("cardPackExt");
     });
