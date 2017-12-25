@@ -48,6 +48,7 @@ $(document).ready(function() {
     let firstPicRotate = "";
     let secondPicRotate = "";
     let solvedImg = "";
+    let firstPicSrc = "";
 
 
     $("#playAgain").css("visibility", "hidden");
@@ -271,6 +272,7 @@ $(document).ready(function() {
                     firstChoice = false;
                     firstPic = $(this).attr("match");
                     firstPicId = $(this).attr("id");
+                    firstPicSrc = $("#" + firstPicId).attr("src");
                     firstPicRotate = $(this).attr("rotate");
                     $("#" + firstPicId).attr("src", "assets/images/cardsets/" + cardPack + firstPic + cardPackExt);
                     $("#" + firstPicId).addClass("largerImg");
@@ -279,6 +281,7 @@ $(document).ready(function() {
                 } else {
                     secondPic = $(this).attr("match");
                     secondPicId = $(this).attr("id");
+                    secondPicSrc = $("#" + secondPicId).attr("src");
                     secondPicRotate = $(this).attr("rotate");
                     $("#" + secondPicId).attr("src", "assets/images/cardsets/" + cardPack + secondPic + cardPackExt);
                     $("#" + secondPicId).addClass("largerImg");
@@ -441,15 +444,17 @@ $(document).ready(function() {
             clearInterval(intervalId);
             $("#" + firstPicId).removeClass("largerImg");
             $("#" + secondPicId).removeClass("largerImg");
-            $("#" + firstPicId).attr("src", "assets/images/ornament.png");
-            $("#" + secondPicId).attr("src", "assets/images/ornament.png");
+            $("#" + firstPicId).attr("src", firstPicSrc);
+            $("#" + secondPicId).attr("src", secondPicSrc);
             $("#" + firstPicId).css("transform", "rotate(" + firstPicRotate + "deg) scale(1.0)");
             $("#" + secondPicId).css("transform", "rotate(" + secondPicRotate + "deg) scale(1.0)");
             for (let i=1; i<21; i++) {
                 solvedImg = $("#" + i).attr("solved");
                 $("#" + i).removeClass("possibility");
+                // This is to change the src back if a snowglobe was used
                 if (i != firstPicId && solvedImg === "no") {
-                    $("#" + i).attr("src", "assets/images/ornament.png");
+                    let origSrc = $("#" + i).attr("srcFile");
+                    $("#" + i).attr("src", origSrc);
                 }  
             }
             clickedonSnowglobe = false;
@@ -468,8 +473,10 @@ $(document).ready(function() {
             for (let i=1; i<21; i++) {
                 solvedImg = $("#" + i).attr("solved");
                 $("#" + i).removeClass("possibility");
+                // This is to change the src back if a snowglobe was used
                 if (i != firstPicId && solvedImg === "no") {
-                    $("#" + i).attr("src", "assets/images/ornament.png");
+                    let origSrc = $("#" + i).attr("srcFile");
+                    $("#" + i).attr("src", origSrc);
                 }
                 if (i.toString() === secondPicId) {
                     let firstSrc = $("#" + firstPicId).attr("src");
@@ -497,7 +504,8 @@ $(document).ready(function() {
                 $("#" + i).removeClass("largerImg");
                 solvedImg = $("#" + i).attr("solved");
                 if (solvedImg === "no") {
-                    $("#" + i).attr("src", "assets/images/ornament.png");
+                    let origSrc = $("#" + i).attr("srcFile");
+                    $("#" + i).attr("src", origSrc);
                     $("#" + i).css("transform", "rotate(" + ornRotate[i-1] + "deg)");
                 }
             }
@@ -544,7 +552,8 @@ $(document).ready(function() {
         $(".snowglobes").removeClass("shakeGlobe");
         for (let i=1; i<21; i++) {
             $("#" + i).attr("solved", "no");
-            $("#" + i).attr("src", "assets/images/ornament.png");
+            origSrc = $("#" + i).attr("srcFile");
+            $("#" + i).attr("src", origSrc);
             $("#" + i).css("transform", "rotate(" + ornRotate[i-1] + "deg)");
             $("#" + i).removeClass("solved");
         }
