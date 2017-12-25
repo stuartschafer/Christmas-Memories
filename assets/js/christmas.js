@@ -60,7 +60,7 @@ $(document).ready(function() {
     shuffleColorsAndImages();
     makeSnowglobes();
 
-    // $('#myModal').modal("toggle");
+    $('#myModal').modal("toggle");
 
     $("#showTimer").on("click", function(event) {
         $("#timeStuff").css("visibility", "visible");
