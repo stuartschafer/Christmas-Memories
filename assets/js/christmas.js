@@ -58,7 +58,7 @@ $(document).ready(function() {
     shuffleImagesAndRotations();
     makeSnowglobes();
 
-    // $('#myModal').modal("toggle");
+    $('#myModal').modal("toggle");
 
     $("#showTimer").on("click", function(event) {
         $("#timeStuff").css("visibility", "visible");
@@ -89,29 +89,39 @@ $(document).ready(function() {
                 break;
             // No tree movement, BUT snowballs
             case difficulty === "level2":
+                $("#snowglobe5").fadeOut("slow");
                 treeMoveTime = 9999999999;
-                snowballTime = 700;
-                addToSnowballTime = 700;
+                // snowballTime = 500;
+                addToSnowballTime = 500;
                 break;
             // No tree movement, BUT snowballs happen more often
             case difficulty === "level3":
+                $("#snowglobe5").fadeOut("slow");
+                $("#snowglobe4").fadeOut("slow");
                 treeMoveTime = 9999999999;
-                snowballTime = 700;
-                addToSnowballTime = 350;
+                // snowballTime = 700;
+                addToSnowballTime = 250;
                 break;
             // Tree movement & snowballs
             case difficulty === "level4":
-                treeMoveTime = 500;
-                addToTreeTime = 500;
-                snowballTime = 700;
-                addToSnowballTime = 700;
+                $("#snowglobe5").fadeOut("slow");
+                $("#snowglobe4").fadeOut("slow");
+                $("#snowglobe3").fadeOut("slow");
+                // treeMoveTime = 600;
+                addToTreeTime = 600;
+                // snowballTime = 400;
+                addToSnowballTime = 400;
                 break;
             // Tree movement BUT snowballs AND tree movement happen more often
             case difficulty === "level5":
-                treeMoveTime = 400;
+                $("#snowglobe5").fadeOut("slow");
+                $("#snowglobe4").fadeOut("slow");
+                $("#snowglobe3").fadeOut("slow");
+                $("#snowglobe2").fadeOut("slow");
+                // treeMoveTime = 400;
                 addToTreeTime = 400;
-                snowballTime = 350;
-                addToSnowballTime = 350;
+                // snowballTime = 250;
+                addToSnowballTime = 250;
                 break;
         }
     });
@@ -337,7 +347,6 @@ $(document).ready(function() {
         if (gameTime > snowballTime && gameTime < (snowballTime+2)) {
             
             let random1 = Math.floor((Math.random() * 100) + 1);
-            // console.log(random1);
             if (snowball === false) {
                 $(".snowballs").removeClass("snowglobeIntroFromLeft snowglobeIntroFromRight snowglobeIntroFromTop meltAway");
                 switch (true) {
@@ -381,7 +390,7 @@ $(document).ready(function() {
         // This part will determine if the tree moves from side to side
         if (gameTime > treeMoveTime && gameTime < (treeMoveTime+2)) {
             let random2 = Math.floor((Math.random() * 100) + 1);
-            // console.log("tree rotate = " + random2);
+            console.log("tree rotate = " + random2);
             if (random2 > 50 && random2 < 100) {
                 if (rotate === "neg45") {
                     $(".gameboard").addClass("neg45ToBase");
