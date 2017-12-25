@@ -52,7 +52,7 @@ $(document).ready(function() {
     let cardPackExt = ".jpg";
 
 
-    $("#playAgain").hide();
+    $("#playAgain").css("visibility", "hidden");
     // Testing for the snowball position
     // $("#snowball6").addClass("snowglobeIntroFromLeft");
     
@@ -63,11 +63,11 @@ $(document).ready(function() {
     // $('#myModal').modal("toggle");
 
     $("#showTimer").on("click", function(event) {
-        $("#timeStuff").fadeIn("slow");
+        $("#timeStuff").css("visibility", "visible");
     });
 
     $("#hideTimer").on("click", function(event) {
-        $("#timeStuff").fadeOut("slow");
+        $("#timeStuff").css("visibility", "hidden");
     });
 
     // This is for the cardPack selection
@@ -278,7 +278,7 @@ $(document).ready(function() {
                         pauseTime();
                     }
                     
-                    if (correct === 10) {
+                    if (correct === 2) {
                         endGame();
                     }
                 }
@@ -501,7 +501,7 @@ $(document).ready(function() {
         console.log("YOU WIN!");
         console.log(gameTime);
         $("#titleTop").html("YOU WIN!");
-        $("#playAgain").fadeIn("slow");
+        $("#playAgain").css("visibility", "visible");
         $(".gameboard").removeClass("rotateNeg45");
         $(".gameboard").removeClass("neg45ToBase");
         $(".gameboard").removeClass("rotatePos45");
@@ -510,8 +510,8 @@ $(document).ready(function() {
 
     $("#playAgain").on("click", function(event) {
         // This resets everything to the beginning
-        $("#playAgain").fadeOut("slow");
-        $(".cardPack").css("visibility", "visible");
+        $("#playAgain").css("visibility", "hidden");
+        $("#cardPackSelection").css("visibility", "visible");
         $("#chooseDiff").css("visibility", "visible");
         $("#titleTop").html("Merry Christmas");
         $("#minute").html("0");

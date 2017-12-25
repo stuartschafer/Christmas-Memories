@@ -18,7 +18,7 @@
     <script type="text/javascript" src="assets/js/christmas.js"></script>
 
 	<!-- This links the new font -->
-	<link href="https://fonts.googleapis.com/css?family=Acme" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Acme&effect=shadow-multiple|fire-animation|3d-float|outline" rel="stylesheet">
 
 </head>
 <body>
@@ -66,9 +66,9 @@
         <div class="row titleArea">
             <div class="col-md-6">
                 <h1>
-                    <span id="titleTop">Christmas Memory</span>
+                    <span class="font-effect-fire-animation" id="titleTop">Christmas Memory</span>
                 </h1>
-                <div id="chooseDiff">
+                <div class="font-effect-3d-float" id="chooseDiff">
                     <div class="buttonChoices" id="cardPackSelection">
                         <h3>Choose Card Pack...
                         <button type="button" class="btn btn-sm btn-danger cardPack" id="christmas" cardPackExt=".jpg">Christmas</button>
@@ -79,19 +79,19 @@
                     </div>
                     <div class="buttonChoices" id="diff">
                         <h3>Choose Difficulty...
-                        <button type="button" class="btn btn-sm btn-success difficulty" id="level1">LVL 1</button>
-                        <button type="button" class="btn btn-sm btn-success difficulty" id="level2">LVL 2</button>
-                        <button type="button" class="btn btn-sm btn-success difficulty" id="level3">LVL 3</button>
-                        <button type="button" class="btn btn-sm btn-success difficulty" id="level4">LVL 4</button>
-                        <button type="button" class="btn btn-sm btn-success difficulty" id="level5">LVL 5</button>
+                        <button type="button" class="btn btn-sm btn-primary difficulty" id="level1">LVL 1</button>
+                        <button type="button" class="btn btn-sm btn-primary difficulty" id="level2">LVL 2</button>
+                        <button type="button" class="btn btn-sm btn-primary difficulty" id="level3">LVL 3</button>
+                        <button type="button" class="btn btn-sm btn-primary difficulty" id="level4">LVL 4</button>
+                        <button type="button" class="btn btn-sm btn-primary difficulty" id="level5">LVL 5</button>
                         </h3>
                     </div>
+                    <button type="button" class="btn btn-lg btn-primary" id="playAgain">Play Again?</button>
                 </div>
-                <button type="button" class="btn btn-sm btn-primary" id="playAgain">Play Again?</button>
             </div>
             <div class="col-md-6 text-right"> 
                 <h1 id="timeArea">
-                    <div id="timeStuff">
+                    <div class="font-effect-outline" id="timeStuff">
                         <span class="timeStuff" id="minute">0</span>
                         :
                         <span class="timeStuff" id="sec1">0</span>

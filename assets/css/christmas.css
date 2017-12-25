@@ -11,13 +11,30 @@ h1 {
 }
 
 .gameboard {
-    /* width: 80%; */
     margin-left: 10%;
+}
+
+#playAgain {
+    margin-top: -30%;
+}
+
+.titleArea {
+    padding-top: 1%;
+    padding-bottom: 4%;
+}
+
+#titleTop {
+    background-color: white;
+    color: green;
+    padding-left: 2%;
+    padding-right: 2%;
 }
 
 .buttonChoices  {
     background-color: white;
-    width: 79%;
+    width: 85.6%;
+    margin-top: -3%;
+    padding-left: 2%;
 }
                   
 #tree {
@@ -90,9 +107,14 @@ h1 {
     margin-left: -40%;
 }
 
-#timeArea {
+#timeStuff {
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-    height: 50px;
+    background-color: white;
+    width: 51%;
+    margin-left: 58%;
+    color: lightgreen;
+    padding-left: 2%;
+    padding-right: 2%;
 }
 
 #hideTimer {
@@ -117,9 +139,19 @@ h1 {
 }
 
 #snowglobeSection {
-    /* margin-left: 30.5%; */
-    height: 60px; 
+    margin-top: -3%; 
+    height: 60px;
     width: 5%;
+}
+
+#diff {
+    padding-top: 1%;
+    padding-bottom: 0.5%;
+    color: blue;
+}
+
+#cardPackSelection {
+    color: red;
 }
 
 #chooseDiff {
