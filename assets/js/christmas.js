@@ -48,7 +48,7 @@ $(document).ready(function() {
     let clickedonSnowglobe = false;
     let startingSnowglobes = 5;
     let snowball = false;
-    let cardPack = "christmas";
+    let cardPack = "christmas/";
     let cardPackExt = ".jpg";
 
 
@@ -144,7 +144,7 @@ $(document).ready(function() {
             nextTurn = false;
             if (starIsRecharged === true) {
                 for (let i=0; i<21; i++) {
-                    $("#" + i).attr("src", "assets/images/" + cardPack + matches[i-1] + cardPackExt);
+                    $("#" + i).attr("src", "assets/images/cardsets/" + cardPack + matches[i-1] + cardPackExt);
                 }
                 $("#star").css("opacity", "0.2");
                 $("#star").css("transform", "scale(0.01)");
@@ -256,13 +256,14 @@ $(document).ready(function() {
                     firstChoice = false;
                     firstPic = $(this).attr("match");
                     firstPicId = $(this).attr("id");
-                    $("#" + firstPicId).attr("src", "assets/images/" + cardPack + firstPic + cardPackExt);
+                    console.log("assets/images/cardsets/" + cardPack + firstPic + cardPackExt);
+                    $("#" + firstPicId).attr("src", "assets/images/cardsets/" + cardPack + firstPic + cardPackExt);
                     $("#" + firstPicId).addClass("largerImg");
 
                 } else {
                     secondPic = $(this).attr("match");
                     secondPicId = $(this).attr("id");
-                    $("#" + secondPicId).attr("src", "assets/images/" + cardPack + secondPic + cardPackExt);
+                    $("#" + secondPicId).attr("src", "assets/images/cardsets/" + cardPack + secondPic + cardPackExt);
                     $("#" + secondPicId).addClass("largerImg");
                     
                     // This checks to see if the 2 pictures match each other
@@ -270,11 +271,11 @@ $(document).ready(function() {
                         madeMatch = true;
                         nextTurn = false;
                         correct++;
-                        time = 200;
+                        time = 150;
                         pauseTime();
                     } else {
                         nextTurn = false;
-                        time = 200;
+                        time = 150;
                         pauseTime();
                     }
                     
@@ -498,8 +499,6 @@ $(document).ready(function() {
     function endGame() {
         clearInterval(intervalId3);
         $(".snowglobes").fadeIn("slow");
-        console.log("YOU WIN!");
-        console.log(gameTime);
         $("#titleTop").html("YOU WIN!");
         $("#playAgain").css("visibility", "visible");
         $(".gameboard").removeClass("rotateNeg45");
