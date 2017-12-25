@@ -144,6 +144,7 @@ $(document).ready(function() {
             nextTurn = false;
             if (starIsRecharged === true) {
                 for (let i=0; i<21; i++) {
+                    $("#" + i).addClass("largerImg");
                     $("#" + i).attr("src", "assets/images/cardsets/" + cardPack + matches[i-1] + cardPackExt);
                 }
                 $("#star").css("opacity", "0.2");
@@ -271,15 +272,15 @@ $(document).ready(function() {
                         madeMatch = true;
                         nextTurn = false;
                         correct++;
-                        time = 150;
+                        time = 75;
                         pauseTime();
                     } else {
                         nextTurn = false;
-                        time = 150;
+                        time = 75;
                         pauseTime();
                     }
                     
-                    if (correct === 2) {
+                    if (correct === 10) {
                         endGame();
                     }
                 }
@@ -422,17 +423,17 @@ $(document).ready(function() {
         // When 2 ornaments are clicked and they DO NOT match
         if (time === 0 && nextTurn === false && madeMatch === false) {
             clearInterval(intervalId);
-            $("#" + firstPicId).attr("src", "assets/images/trans.png");
-            $("#" + secondPicId).attr("src", "assets/images/trans.png");
-            $("#" + firstPicId).css("background-color", colors[firstPicId-1]);
-            $("#" + secondPicId).css("background-color", colors[secondPicId-1]);
+            // $("#" + firstPicId).css("background-color", colors[firstPicId-1]);
+            // $("#" + secondPicId).css("background-color", colors[secondPicId-1]);
             $("#" + firstPicId).removeClass("largerImg");
             $("#" + secondPicId).removeClass("largerImg");
+            $("#" + firstPicId).attr("src", "assets/images/ornament.jpg");
+            $("#" + secondPicId).attr("src", "assets/images/ornament.jpg");
             for (let i=1; i<21; i++) {
                 let solvedImg = $("#" + i).attr("solved");
                 $("#" + i).removeClass("possibility");
                 if (i != firstPicId && solvedImg === "no") {
-                    $("#" + i).attr("src", "assets/images/trans.png");
+                    $("#" + i).attr("src", "assets/images/ornament.jpg");
                 }  
             }
             clickedonSnowglobe = false;
@@ -450,8 +451,8 @@ $(document).ready(function() {
                 let solvedImg = $("#" + i).attr("solved");
                 $("#" + i).removeClass("possibility");
                 if (i != firstPicId && solvedImg === "no") {
-                    $("#" + i).attr("src", "assets/images/trans.png");
-                } 
+                    $("#" + i).attr("src", "assets/images/ornament.jpg");
+                }
                 if (i.toString() === secondPicId) {
                     let firstSrc = $("#" + firstPicId).attr("src");
                     $("#" + i).attr("src", firstSrc);
@@ -474,10 +475,12 @@ $(document).ready(function() {
        
         // This turns back all images to colored circles after 2 seconds (time = 900 when run)
         if (starTime === 2800) {
-            for (let i=0; i<21; i++) {
-                $("#" + i).attr("src", "assets/images/trans.png");
-                $("#" + i).css("background-color", colors[i-1]);
+            for (let i=1; i<21; i++) {
                 $("#" + i).removeClass("largerImg");
+                let solvedImg = $("#" + i).attr("solved");
+                if (solvedImg === "no") {
+                    $("#" + i).attr("src", "assets/images/ornament.jpg");
+                }
             }
             nextTurn = true;
         } else if (starTime === 0) {
@@ -583,14 +586,15 @@ $(document).ready(function() {
             temp = colors[i];
             temp2 = matches[i];
             colors[i] = colors[j];
-            // matches[i] = matches[j];
+            matches[i] = matches[j];
             colors[j] = temp;
-            // matches[j] = temp2;
+            matches[j] = temp2;
         }
 
         // This assigns each color on the board
         for (let i=1; i<colors.length+1; i++) {
-            $("#" + i).css("background-color", colors[i-1]);
+            // $("#" + i).css("background-color", colors[i-1]);
+            // $("#" + i).css("src", "assets/images/ornament.jpg");
             $("#" + i).attr("match", matches[i-1]);
         } 
     }
