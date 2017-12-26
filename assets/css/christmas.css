@@ -114,7 +114,12 @@ h1 {
 }
 
 #myModal {
-    margin-top: 10%;
+    margin-left: -25%;
+}
+
+.modal1 {
+    background-color: green;
+    color: white;
 }
 
 #timeStuff {

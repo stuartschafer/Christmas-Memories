@@ -30,22 +30,28 @@
     <div id="modalSection">
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
             <div class="modal-dialog" role="document">
-                <div class="modal-content">
+                <div class="modal-content modal-lg">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h2 class="modal-title" id="gridSystemModalLabel">Show-Me Star & Snowglobes</h2>
+                        <h2 class="modal-title" id="gridSystemModalLabel">Welcome to Christmas Memory!</h2>
                     </div>
 
-                    <div class="modal-body">
+                    <div class="modal-body modal1">
+                        <h3><span style="text-decoration: underline;">To Play:</span></h3>
+                        <h4>Select a card pack (default is Christmas), and a difficult level, then try to match each picture with it's pair.</h4>
+                        
+                        <h3><span style="text-decoration: underline;">Show-Me Star</span></h3>
+                        
+                        <h4>When the Star is sparkling, click on it to show all pictures briefly.
+                        It will recharge over time.  It can only be used when no images have been selected.</h4>
+                        
+                        <h3><span style="text-decoration: underline;">Snowglobes</span></h3>
+                        
+                        <h4>The snowglobes will show you possible matches with the ornament you have selected.
+                        Can only be activated once an ornament is selected.</h4>
+                        
+                        <h3><span style="text-decoration: underline;">Difficulty levels are:</span><h3>
                         <h4>
-                        When the Star is sparkling, click on it to show all pictures briefly.
-                        It will recharge over time.  It can only be used when no images have been selected.
-                        <br><br>
-                        The snowglobes will show you possible matches with the ornament you have selected.
-                        Can only be activated once an ornament is selected.
-                        <br><br>
-                        Difficulty levels are:
-                        <br>
                         1 - Basic memory game, 5 snowglobes and Show-Me star are activated
                         <br>
                         2 - Add in random snowballs that will cover up partial pictures, 4 snowglobes
@@ -59,8 +65,8 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-danger" data-toggle="modal" id="modalBtn">Don't Show This Again</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Roger Dodger</button>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" id="modalBtn">I Got It, Let's Play!</button>
                     </div>
                 </div>
             </div>
@@ -77,7 +83,7 @@
                         <h2 class="modal-title" id="gridSystemModalLabel">CONGRATULATIONS!</h2>
                     </div>
 
-                    <div class="modal-body">
+                    <div class="modal-body modal1">
                         <h3>
                             You mattched all 10 pairs in <span id="totaltime"></span>
                             <br><br>

@@ -59,6 +59,7 @@ $(document).ready(function() {
     makeSnowglobes();
 
     $('#myModal').modal("toggle");
+    // $('#myModal2').modal("toggle");
 
     $("#showTimer").on("click", function(event) {
         $("#timeStuff").css("visibility", "visible");
