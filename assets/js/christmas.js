@@ -79,6 +79,7 @@ $(document).ready(function() {
     // This is for the difficulty selection
     $(".difficulty").on("click", function(event) {
         difficultyChosen = true;
+        $("#rowOne").css("z-index", "0");
         $("#chooseDiff").css("visibility", "hidden");
         $("#cardPackSelection").css("visibility", "hidden");
         let difficulty = $(this).attr("id");
@@ -544,6 +545,7 @@ $(document).ready(function() {
         $("#playAgain").css("visibility", "hidden");
         $("#cardPackSelection").css("visibility", "visible");
         $("#chooseDiff").css("visibility", "visible");
+        $("#rowOne").css("z-index", "-1");
         // $("#titleTop").html("Merry Christmas");
         $("#minute").html("0");
         $("#sec1").html("0");

@@ -15,7 +15,7 @@ h1 {
 }
 
 #playAgain {
-    margin-top: -30%;
+    margin-top: -18%;
 }
 
 .titleArea {
@@ -28,17 +28,18 @@ h1 {
     color: green;
     padding-left: 3%;
     padding-right: 3%;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
+    padding-bottom: 1%;
+    border-radius: 15px;
 }
 
 .buttonChoices  {
     background-color: white;
     width: 75.25%;
-    margin-top: -3%;
+    margin-top: -4%;
+    padding-top: 0.5%;
     padding-left: 2%;
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
+    border-radius: 15px;
+    /* border-bottom-right-radius: 15px; */
 }
                   
 #tree {
@@ -66,7 +67,7 @@ h1 {
 }
 
 .starRow {
-    margin-top: -16%;
+    margin-top: -18.5%;
     width: 0%;
     margin-left: 42.2%;
 }
@@ -74,7 +75,12 @@ h1 {
 .topRow {
     color: white;
 }
-/* 45, 90, 135, 180, 225, 280, 310  */
+
+#rowOne {
+    margin-top: -6%;
+    z-index: -1;
+}
+
 .firstOrnament {
     margin-left: 40%;
 }
@@ -137,14 +143,10 @@ h1 {
     height: 80px;
 }
 
-#rowOne {
-    margin-top: -4%;
-}
-
 .snowglobes {
     height: 100%;
     margin-right: 4%;
-    margin-bottom: 20%;
+    margin-top: 20%;
     transition: filter .2s;
 	transition: all ease-in-out .2s;
 }
@@ -212,9 +214,10 @@ h1 {
 }
 
 .largerImg {
-    width: 70px;
+    /* width: 70px; */
     height: 70px;
-    border-radius: 38px;
+    margin-top: 1.5%; 
+    border-radius: 35px;
     transition: filter .2s;
     transition: all ease-in-out .2s;
 }
@@ -304,7 +307,7 @@ h1 {
 
 @-webkit-keyframes rotateNeg45 {
 	from { -webkit-transform: rotate(0deg); }
-	to { -webkit-transform: rotate(-135deg); }
+	to { -webkit-transform: rotate(-140deg); }
 }
 
 .neg45ToBase {
@@ -314,7 +317,7 @@ h1 {
 }
 
 @-webkit-keyframes neg45ToBase {
-	from { -webkit-transform: rotate(-135deg); }
+	from { -webkit-transform: rotate(-140deg); }
 	to { -webkit-transform: rotate(0deg); }
 }
 
@@ -326,7 +329,7 @@ h1 {
 
 @-webkit-keyframes rotatePos45 {
     from { -webkit-transform: rotate(0deg); }
-    to { -webkit-transform: rotate(135deg); }
+    to { -webkit-transform: rotate(140deg); }
 }
 
 .pos45ToBase {
@@ -336,6 +339,29 @@ h1 {
 }
 
 @-webkit-keyframes pos45ToBase {
-	from { -webkit-transform: rotate(135deg); }
+	from { -webkit-transform: rotate(140deg); }
 	to { -webkit-transform: rotate(0deg); }
+}
+
+
+@keyframes spinner {
+  to {transform: rotate(360deg);}
+}
+ 
+.spinner:before {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  margin-left: -10px;
+  border-radius: 50%;
+  border: 1px solid #f6f;
+  border-top-color: #0e0;
+  border-right-color: #0dd;
+  border-bottom-color: #f90;
+  animation: spinner .6s linear infinite;
 }
