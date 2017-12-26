@@ -15,7 +15,7 @@ h1 {
 }
 
 #playAgain {
-    margin-top: -18%;
+     visibility: hidden; 
 }
 
 .titleArea {

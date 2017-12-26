@@ -26,7 +26,7 @@
 </head>
 <body>
 
-    <!-- Modal -->
+    <!-- Beginning Modal -->
     <div id="modalSection">
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
             <div class="modal-dialog modal-sm" role="document">
@@ -59,6 +59,35 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
                         <button type="button" class="btn btn-danger" data-toggle="modal" id="modalBtn">Don't Show This Again</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Over Modal -->
+    <div id="modalSection">
+        <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h2 class="modal-title" id="gridSystemModalLabel">CONGRATULATIONS!</h2>
+                    </div>
+
+                    <div class="modal-body">
+                        <h3>
+                            You mattched all 10 pairs in <span id="totaltime"></span>
+                            <br><br>
+                            See if you can do it faster or on a harder difficulty.
+                            <br>
+                            I triple-dog dare ya!
+                        </h3>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary btn-lg" data-dismiss="modal">Na, this is too hard for me</button>
+                        <button type="button" class="btn btn-success btn-lg" id="playAgain" data-dismiss="modal">Play Again?</button>
                     </div>
                 </div>
             </div>

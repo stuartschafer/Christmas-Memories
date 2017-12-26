@@ -50,8 +50,7 @@ $(document).ready(function() {
     let solvedImg = "";
     let firstPicSrc = "";
 
-
-    $("#playAgain").css("visibility", "hidden");
+    // $("#playAgain").css("visibility", "hidden");
     // Testing for the snowball position
     // $("#snowball6").addClass("snowglobeIntroFromLeft");
     
@@ -538,6 +537,8 @@ $(document).ready(function() {
         $(".gameboard").removeClass("neg45ToBase");
         $(".gameboard").removeClass("rotatePos45");
         $(".gameboard").removeClass("pos45ToBase");
+        $('#myModal2').modal("toggle");
+        $("#totaltime").html(`${minute} min, ${leftSec}${rightSec} secs (${milisecond}ms)`);
     }
 
     $("#playAgain").on("click", function(event) {
