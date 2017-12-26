@@ -299,7 +299,7 @@ h1 {
 
 @-webkit-keyframes rotateNeg45 {
 	from { -webkit-transform: rotate(0deg); }
-	to { -webkit-transform: rotate(-30deg); }
+	to { -webkit-transform: rotate(-135deg); }
 }
 
 .neg45ToBase {
@@ -309,7 +309,7 @@ h1 {
 }
 
 @-webkit-keyframes neg45ToBase {
-	from { -webkit-transform: rotate(-30deg); }
+	from { -webkit-transform: rotate(-135deg); }
 	to { -webkit-transform: rotate(0deg); }
 }
 
@@ -321,7 +321,7 @@ h1 {
 
 @-webkit-keyframes rotatePos45 {
     from { -webkit-transform: rotate(0deg); }
-    to { -webkit-transform: rotate(30deg); }
+    to { -webkit-transform: rotate(135deg); }
 }
 
 .pos45ToBase {
@@ -331,6 +331,6 @@ h1 {
 }
 
 @-webkit-keyframes pos45ToBase {
-	from { -webkit-transform: rotate(30deg); }
+	from { -webkit-transform: rotate(135deg); }
 	to { -webkit-transform: rotate(0deg); }
 }
