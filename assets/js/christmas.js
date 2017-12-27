@@ -298,13 +298,14 @@ $(document).ready(function() {
 
     // This is for the ornaments that are clickable
     $(".clickable").on("click", function(event) {
+        if (firstChoice === true) {
+            firstPicId = "";
+            secondPicId = "";
+        }
         // console.log(difficultyChosen);
         if (difficultyChosen === true) {
             alreadySolved = $(this).attr("solved");
             let clickedOnSameImage = $(this).attr("id");
-            console.log("firstPicId = " + firstPicId);
-            console.log("secondPicId = " + secondPicId);
-            console.log("clickedOnSameImage = " + clickedOnSameImage);
 
             // This makes sure the user didn't click on the same image
             if (clickedOnSameImage != firstPicId && clickedOnSameImage != secondPicId) {
