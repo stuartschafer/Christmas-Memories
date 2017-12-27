@@ -134,6 +134,7 @@ $(document).ready(function() {
                 snowballTime = 9999999999;
                 $("#21").css("visibility", "visible");
                 for (let i=16; i<21; i++) {
+                    $("#" + i).removeClass("regOrnamentRow");
                     $("#" + i).addClass("lastOrnamentRow");
                 }
                 matches = [1,2,3,4,5,6,7,1,2,3,4,5,6,7,1,2,3,4,5,6,7];
@@ -284,6 +285,7 @@ $(document).ready(function() {
             // alreadySolved means the user has already solved that image
             if (nextTurn === true && alreadySolved === "no") {
                 if (firstChoice === true) {
+                    turn = "second";
                     firstChoice = false;
                     firstPic = $(this).attr("match");
                     firstPicId = $(this).attr("id");
@@ -292,7 +294,7 @@ $(document).ready(function() {
                     $("#" + firstPicId).attr("src", "assets/images/cardsets/" + cardPack + firstPic + cardPackExt);
                     $("#" + firstPicId).addClass("largerImg");
                     $("#" + firstPicId).css("transform", "rotate(" + firstPicRotate + "deg) scale(1.5)");
-                } else {
+                } else if (turn === "second") {
                     secondPic = $(this).attr("match");
                     secondPicId = $(this).attr("id");
                     secondPicSrc = $("#" + secondPicId).attr("src");
@@ -314,8 +316,30 @@ $(document).ready(function() {
                         if (correct === 10) {
                             endGame();
                         }
+                    } else {
+                        turn = "third";
                     }
-                }
+                } else {
+                    thirdPic = $(this).attr("match");
+                    thirdPicId = $(this).attr("id");
+                    thirdPicSrc = $("#" + thirdPicId).attr("src");
+                    thirdPicRotate = $(this).attr("rotate");
+                    $("#" + thirdPicId).attr("src", "assets/images/cardsets/" + cardPack + thirdPic + cardPackExt);
+                    $("#" + thirdPicId).addClass("largerImg");
+                    $("#" + thirdPicId).css("transform", "rotate(" + thirdPicRotate + "deg) scale(1.5)");
+
+                    if (firstPic === secondPic && firstPic === thirdPic && secondPic === thirdPic) {
+                            madeMatch = true;
+                            correct++;
+                    }
+                    nextTurn = false;
+                    time = 75;
+                    pauseTime();
+                    
+                    if (correct === 7) {
+                        endGame();
+                    }
+                }                
             }
         }
     });
@@ -446,51 +470,108 @@ $(document).ready(function() {
         // When 2 ornaments are clicked and they DO NOT match
         if (time === 0 && nextTurn === false && madeMatch === false) {
             clearInterval(intervalId);
-            $("#" + firstPicId).removeClass("largerImg");
-            $("#" + secondPicId).removeClass("largerImg");
-            $("#" + firstPicId).attr("src", firstPicSrc);
-            $("#" + secondPicId).attr("src", secondPicSrc);
-            $("#" + firstPicId).css("transform", "rotate(" + firstPicRotate + "deg) scale(1.0)");
-            $("#" + secondPicId).css("transform", "rotate(" + secondPicRotate + "deg) scale(1.0)");
-            for (let i=1; i<21; i++) {
-                solvedImg = $("#" + i).attr("solved");
-                $("#" + i).removeClass("possibility");
-                // This is to change the src back if a snowglobe was used
-                if (i != firstPicId && solvedImg === "no") {
-                    let origSrc = $("#" + i).attr("srcFile");
-                    $("#" + i).attr("src", origSrc);
-                }  
+            if (turn === "second") {
+                $("#" + firstPicId).removeClass("largerImg");
+                $("#" + secondPicId).removeClass("largerImg");
+                $("#" + firstPicId).attr("src", firstPicSrc);
+                $("#" + secondPicId).attr("src", secondPicSrc);
+                $("#" + firstPicId).css("transform", "rotate(" + firstPicRotate + "deg) scale(1.0)");
+                $("#" + secondPicId).css("transform", "rotate(" + secondPicRotate + "deg) scale(1.0)");
+                for (let i=1; i<21; i++) {
+                    solvedImg = $("#" + i).attr("solved");
+                    $("#" + i).removeClass("possibility");
+                    // This is to change the src back if a snowglobe was used
+                    if (i != firstPicId && solvedImg === "no") {
+                        let origSrc = $("#" + i).attr("srcFile");
+                        $("#" + i).attr("src", origSrc);
+                    }  
+                }
+                clickedonSnowglobe = false;
+                nextTurn = true;
+                firstChoice = true;
+            } else if (turn === "third") {
+                // console.log("=-=-=-=-=-=-=-=-=-=-=-=-=-=");
+                $("#" + firstPicId).removeClass("largerImg");
+                $("#" + secondPicId).removeClass("largerImg");
+                $("#" + thirdPicId).removeClass("largerImg");
+                $("#" + firstPicId).attr("src", firstPicSrc);
+                $("#" + secondPicId).attr("src", secondPicSrc);
+                $("#" + thirdPicId).attr("src", thirdPicSrc);
+                $("#" + firstPicId).css("transform", "rotate(" + firstPicRotate + "deg) scale(1.0)");
+                $("#" + secondPicId).css("transform", "rotate(" + secondPicRotate + "deg) scale(1.0)");
+                $("#" + thirdPicId).css("transform", "rotate(" + thirdPicRotate + "deg) scale(1.0)");
+                for (let i=1; i<21; i++) {
+                    solvedImg = $("#" + i).attr("solved");
+                    $("#" + i).removeClass("possibility");
+                    // This is to change the src back if a snowglobe was used
+                    if (i != firstPicId && solvedImg === "no") {
+                        let origSrc = $("#" + i).attr("srcFile");
+                        $("#" + i).attr("src", origSrc);
+                    }  
+                }
+                clickedonSnowglobe = false;
+                nextTurn = true;
+                firstChoice = true;
             }
-            clickedonSnowglobe = false;
-            nextTurn = true;
-            firstChoice = true;
         } else if (time === 0 && madeMatch === true) {
             clearInterval(intervalId);
-            $("#" + firstPicId).attr("solved", "yes");
-            $("#" + secondPicId).attr("solved", "yes");
-            $("#" + firstPicId).addClass("solved");
-            $("#" + secondPicId).addClass("solved");
-            $("#" + firstPicId).removeClass("largerImg");
-            $("#" + secondPicId).removeClass("largerImg");
-            $("#" + firstPicId).css("transform", "rotate(" + firstPicRotate + "deg) scale(1.0)");
-            $("#" + secondPicId).css("transform", "rotate(" + secondPicRotate + "deg) scale(1.0)");
-            for (let i=1; i<21; i++) {
-                solvedImg = $("#" + i).attr("solved");
-                $("#" + i).removeClass("possibility");
-                // This is to change the src back if a snowglobe was used
-                if (i != firstPicId && solvedImg === "no") {
-                    let origSrc = $("#" + i).attr("srcFile");
-                    $("#" + i).attr("src", origSrc);
+            if (turn === "second") {
+                $("#" + firstPicId).attr("solved", "yes");
+                $("#" + secondPicId).attr("solved", "yes");
+                $("#" + firstPicId).addClass("solved");
+                $("#" + secondPicId).addClass("solved");
+                $("#" + firstPicId).removeClass("largerImg");
+                $("#" + secondPicId).removeClass("largerImg");
+                $("#" + firstPicId).css("transform", "rotate(" + firstPicRotate + "deg) scale(1.0)");
+                $("#" + secondPicId).css("transform", "rotate(" + secondPicRotate + "deg) scale(1.0)");
+                for (let i=1; i<21; i++) {
+                    solvedImg = $("#" + i).attr("solved");
+                    $("#" + i).removeClass("possibility");
+                    // This is to change the src back if a snowglobe was used
+                    if (i != firstPicId && solvedImg === "no") {
+                        let origSrc = $("#" + i).attr("srcFile");
+                        $("#" + i).attr("src", origSrc);
+                    }
+                    if (i.toString() === secondPicId) {
+                        let firstSrc = $("#" + firstPicId).attr("src");
+                        $("#" + i).attr("src", firstSrc);
+                    }
                 }
-                if (i.toString() === secondPicId) {
-                    let firstSrc = $("#" + firstPicId).attr("src");
-                    $("#" + i).attr("src", firstSrc);
+                clickedonSnowglobe = false;
+                firstChoice = true;
+                nextTurn = true;
+                madeMatch = false;
+            } else if (turn === "third") {
+                $("#" + firstPicId).attr("solved", "yes");
+                $("#" + secondPicId).attr("solved", "yes");
+                $("#" + thirdPicId).attr("solved", "yes");
+                $("#" + firstPicId).addClass("solved");
+                $("#" + secondPicId).addClass("solved");
+                $("#" + thirdPicId).addClass("solved");
+                $("#" + firstPicId).removeClass("largerImg");
+                $("#" + secondPicId).removeClass("largerImg");
+                $("#" + thirdPicId).removeClass("largerImg");
+                $("#" + firstPicId).css("transform", "rotate(" + firstPicRotate + "deg) scale(1.0)");
+                $("#" + secondPicId).css("transform", "rotate(" + secondPicRotate + "deg) scale(1.0)");
+                $("#" + thirdPicId).css("transform", "rotate(" + thirdPicRotate + "deg) scale(1.0)");
+                for (let i=1; i<21; i++) {
+                    solvedImg = $("#" + i).attr("solved");
+                    $("#" + i).removeClass("possibility");
+                    // This is to change the src back if a snowglobe was used
+                    if (i != firstPicId && solvedImg === "no") {
+                        let origSrc = $("#" + i).attr("srcFile");
+                        $("#" + i).attr("src", origSrc);
+                    }
+                    if (i.toString() === secondPicId) {
+                        let firstSrc = $("#" + firstPicId).attr("src");
+                        $("#" + i).attr("src", firstSrc);
+                    }
                 }
+                clickedonSnowglobe = false;
+                firstChoice = true;
+                nextTurn = true;
+                madeMatch = false;
             }
-            clickedonSnowglobe = false;
-            firstChoice = true;
-            nextTurn = true;
-            madeMatch = false;
         }
         time--;
     }
@@ -547,6 +628,12 @@ $(document).ready(function() {
 
     $("#playAgain").on("click", function(event) {
         // This resets everything to the beginning
+        for (let i=16; i<21; i++) {
+            $("#" + i).removeClass("lastOrnamentRow");
+            $("#" + i).addClass("regOrnamentRow");
+        }
+
+        $("#21").css("visibility", "hidden");
         $("#playAgain").css("visibility", "hidden");
         $("#cardPackSelection").css("visibility", "visible");
         $("#chooseDiff").css("visibility", "visible");
@@ -557,12 +644,12 @@ $(document).ready(function() {
         $("#sec2").html("0");
         $("#msecs").html("00");
         $(".snowglobes").removeClass("shakeGlobe");
-        for (let i=1; i<21; i++) {
+        for (let i=1; i<22; i++) {
             $("#" + i).attr("solved", "no");
             origSrc = $("#" + i).attr("srcFile");
             $("#" + i).attr("src", origSrc);
             $("#" + i).css("transform", "rotate(" + ornRotate[i-1] + "deg)");
-            $("#" + i).removeClass("solved");
+            $("#" + i).removeClass("solved largerImg");
         }
         difficultyChosen = false;
         difficulty = "";
