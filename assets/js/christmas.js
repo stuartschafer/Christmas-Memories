@@ -61,7 +61,7 @@ $(document).ready(function() {
     shuffleImagesAndRotations();
     makeSnowglobes();
 
-    // $('#myModal').modal("toggle");
+    $('#myModal').modal("toggle");
     // $('#myModal2').modal("toggle");
 
     $("#showTimer").on("click", function(event) {
@@ -737,9 +737,9 @@ $(document).ready(function() {
             temp = ornRotate[i];
             temp2 = matches[i];
             ornRotate[i] = ornRotate[j];
-            // matches[i] = matches[j];
+            matches[i] = matches[j];
             ornRotate[j] = temp;
-            // matches[j] = temp2;
+            matches[j] = temp2;
         }
 
         // This assigns each matching pair and cassigns a rotation for each
