@@ -147,6 +147,10 @@ h1 {
     height: 80px;
 }
 
+.lastOrnamentRow {
+    margin-left: 4%; 
+}
+
 .snowglobes {
     height: 100%;
     margin-right: 4%;

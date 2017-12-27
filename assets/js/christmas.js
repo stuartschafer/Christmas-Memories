@@ -3,6 +3,7 @@ $(document).ready(function() {
     let ornRotate = [0,18,36,54,72,90,108,126,144,162,180,198,216,234,252,270,288,306,324,342];
     let firstChoice = true;
     let difficultyChosen = null;
+    let difficulty = "";
     let i = 0;
     let j = 0;
     let temp = null;
@@ -49,6 +50,8 @@ $(document).ready(function() {
     let secondPicRotate = "";
     let solvedImg = "";
     let firstPicSrc = "";
+    let turn = "";
+    $("#21").css("visibility", "hidden");
 
     // $("#playAgain").css("visibility", "hidden");
     // Testing for the snowball position
@@ -58,7 +61,7 @@ $(document).ready(function() {
     shuffleImagesAndRotations();
     makeSnowglobes();
 
-    $('#myModal').modal("toggle");
+    // $('#myModal').modal("toggle");
     // $('#myModal2').modal("toggle");
 
     $("#showTimer").on("click", function(event) {
@@ -82,7 +85,7 @@ $(document).ready(function() {
         $("#rowOne").css("z-index", "0");
         $("#chooseDiff").css("visibility", "hidden");
         $("#cardPackSelection").css("visibility", "hidden");
-        let difficulty = $(this).attr("id");
+        difficulty = $(this).attr("id");
         switch (true) {
             // No tree movement & No snowballs
             case difficulty === "level1":
@@ -124,6 +127,17 @@ $(document).ready(function() {
                 addToTreeTime = 400;
                 // snowballTime = 250;
                 addToSnowballTime = 250;
+                break;
+            // Second Tier difficulty (3 matches must be made)
+            case difficulty === "level21":
+                treeMoveTime = 9999999999;
+                snowballTime = 9999999999;
+                $("#21").css("visibility", "visible");
+                for (let i=16; i<21; i++) {
+                    $("#" + i).addClass("lastOrnamentRow");
+                }
+                matches = [1,2,3,4,5,6,7,1,2,3,4,5,6,7,1,2,3,4,5,6,7];
+                shuffleImagesAndRotations();
                 break;
         }
     });
@@ -278,7 +292,6 @@ $(document).ready(function() {
                     $("#" + firstPicId).attr("src", "assets/images/cardsets/" + cardPack + firstPic + cardPackExt);
                     $("#" + firstPicId).addClass("largerImg");
                     $("#" + firstPicId).css("transform", "rotate(" + firstPicRotate + "deg) scale(1.5)");
-
                 } else {
                     secondPic = $(this).attr("match");
                     secondPicId = $(this).attr("id");
@@ -288,21 +301,19 @@ $(document).ready(function() {
                     $("#" + secondPicId).addClass("largerImg");
                     $("#" + secondPicId).css("transform", "rotate(" + secondPicRotate + "deg) scale(1.5)");
                     
-                    // This checks to see if the 2 pictures match each other
-                    if (firstPic === secondPic) {
-                        madeMatch = true;
-                        nextTurn = false;
-                        correct++;
-                        time = 75;
-                        pauseTime();
-                    } else {
+                    if (difficulty != "level21") {
+                        // This checks to see if the 2 pictures match each other
+                        if (firstPic === secondPic) {
+                            madeMatch = true;
+                            correct++;
+                        }
                         nextTurn = false;
                         time = 75;
                         pauseTime();
-                    }
-                    
-                    if (correct === 10) {
-                        endGame();
+                        
+                        if (correct === 10) {
+                            endGame();
+                        }
                     }
                 }
             }
@@ -313,7 +324,7 @@ $(document).ready(function() {
 
 
 
-    // THis is for the stopwatch timer in the upper right corner
+    // This is for the stopwatch timer in the upper right corner
     function playerTime() {
         intervalId3 = setInterval(gameStart, 10);
     }
@@ -423,14 +434,6 @@ $(document).ready(function() {
         }
 
     }
-
-
-
-
-
-
-
-
 
     // This is the after 2 ornaments are clicked timer
     function pauseTime() {
@@ -562,6 +565,7 @@ $(document).ready(function() {
             $("#" + i).removeClass("solved");
         }
         difficultyChosen = false;
+        difficulty = "";
         firstChoice = true;
         i = 0;
         j = 0;
@@ -600,6 +604,7 @@ $(document).ready(function() {
         snowball = false;
         cardPack = "christmas/";
         cardPackExt = ".jpg";
+        turn = "";
 
         $(".snowballs").removeClass("snowglobeIntroFromLeft snowglobeIntroFromRight snowglobeIntroFromTop meltAway");
 
@@ -618,9 +623,9 @@ $(document).ready(function() {
             temp = ornRotate[i];
             temp2 = matches[i];
             ornRotate[i] = ornRotate[j];
-            matches[i] = matches[j];
+            // matches[i] = matches[j];
             ornRotate[j] = temp;
-            matches[j] = temp2;
+            // matches[j] = temp2;
         }
 
         // This assigns each matching pair and cassigns a rotation for each
