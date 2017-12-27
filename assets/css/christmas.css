@@ -151,6 +151,14 @@ h1 {
     margin-left: 4%; 
 }
 
+.bottomRow {
+    margin-top: 1.5%;
+}
+
+.regOrnamentRow {
+    margin-left: 6%;
+}
+
 .snowglobes {
     height: 100%;
     margin-right: 4%;
@@ -165,6 +173,10 @@ h1 {
     width: 5%;
 }
 
+#snowglobe1 {
+    margin-top: 75%;
+}
+
 #diff {
     padding-top: 1%;
     padding-bottom: 0.5%;
@@ -172,11 +184,20 @@ h1 {
 }
 
 #cardPackSelection {
-    color: red;
+    color: #31b0d5;
+}
+
+.buttonSpacing {
+    margin-left: 1%;
 }
 
 #chooseDiff {
     height: 70px;
+}
+
+.level6button {
+    margin-left: 37.8%;
+    margin-top: 0.5%;
 }
 
 .possibility {
@@ -303,8 +324,10 @@ h1 {
 }
 
 @-webkit-keyframes smallThenBig {
-	from { -webkit-transform: rotate(0deg) scale(0.01); }
-	to { -webkit-transform: rotate(2880deg) scale(1.0);}
+    from { -webkit-transform: rotate(0deg) scale(0);
+            opacity: 0;}
+    to { -webkit-transform: rotate(360deg) scale(1.0);
+            opacity: 1;}
 }
 
 .rotateNeg45 {

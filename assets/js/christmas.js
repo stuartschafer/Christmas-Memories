@@ -129,9 +129,36 @@ $(document).ready(function() {
                 addToSnowballTime = 250;
                 break;
             // Second Tier difficulty (3 matches must be made)
-            case difficulty === "level21":
+            case difficulty === "level6":
+                difficulty = "match3";
                 treeMoveTime = 9999999999;
                 snowballTime = 9999999999;
+                $("#21").css("visibility", "visible");
+                for (let i=16; i<21; i++) {
+                    $("#" + i).removeClass("regOrnamentRow");
+                    $("#" + i).addClass("lastOrnamentRow");
+                }
+                matches = [1,2,3,4,5,6,7,1,2,3,4,5,6,7,1,2,3,4,5,6,7];
+                shuffleImagesAndRotations();
+                break;
+            // Second Tier difficulty (3 matches must be made) PLUS SNOWBALLS
+            case difficulty === "level7":
+                difficulty = "match3";
+                treeMoveTime = 9999999999;
+                addToSnowballTime = 250;
+                $("#21").css("visibility", "visible");
+                for (let i=16; i<21; i++) {
+                    $("#" + i).removeClass("regOrnamentRow");
+                    $("#" + i).addClass("lastOrnamentRow");
+                }
+                matches = [1,2,3,4,5,6,7,1,2,3,4,5,6,7,1,2,3,4,5,6,7];
+                shuffleImagesAndRotations();
+                break;
+            // Second Tier difficulty (3 matches must be made) PLUS SNOWBALLS & TREE ROTATION
+            case difficulty === "level8":
+                difficulty = "match3";
+                addToTreeTime = 400;
+                addToSnowballTime = 250;
                 $("#21").css("visibility", "visible");
                 for (let i=16; i<21; i++) {
                     $("#" + i).removeClass("regOrnamentRow");
@@ -303,7 +330,7 @@ $(document).ready(function() {
                     $("#" + secondPicId).addClass("largerImg");
                     $("#" + secondPicId).css("transform", "rotate(" + secondPicRotate + "deg) scale(1.5)");
                     
-                    if (difficulty != "level21") {
+                    if (difficulty != "match3") {
                         // This checks to see if the 2 pictures match each other
                         if (firstPic === secondPic) {
                             madeMatch = true;
@@ -583,8 +610,8 @@ $(document).ready(function() {
 
     function starCount () {
        
-        // This turns back all images to ornaments after .3 seconds (time = 1970 when they go back to ornament)
-        if (starTime === 1970) {
+        // This turns back all images to ornaments after .7 seconds (time = 1930 when they go back to ornament)
+        if (starTime === 1930) {
             for (let i=1; i<21; i++) {
                 $("#" + i).removeClass("largerImg");
                 solvedImg = $("#" + i).attr("solved");

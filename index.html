@@ -61,6 +61,12 @@
                         4 - Along with snowballs, the tree will rotate at random, 2 snowglobes
                         <br>
                         5- BOTH Snowballs and Tree rotation happen more often, 1 snowglobe
+                        <br>
+                        6 - MATCH 3. There are 7 images of each, and you must match 3 at a time! Good Luck!
+                        <br>
+                        7 - MATCH 3. Throw in snowballs. Good Luck!
+                        <br>
+                        8 - MATCH 3. Along with snowballs, the tree will rotate. Good Luck!
                         </h4>
                     </div>
 
@@ -111,22 +117,24 @@
                 <div class="font-effect-3d-float" id="chooseDiff">
                     <div class="buttonChoices" id="cardPackSelection">
                         <h3>Choose Card Pack...
-                        <button type="button" class="btn btn-sm btn-danger cardPack" id="christmas/" cardPackExt=".jpg">Christmas</button>
-                        <button type="button" class="btn btn-sm btn-danger cardPack" id="beach/" cardPackExt=".jpeg">Beach</button>
-                        <button type="button" class="btn btn-sm btn-danger cardPack" id="landmarks/" cardPackExt=".jpg">Landmarks</button>
-                        <button type="button" class="btn btn-sm btn-danger cardPack" id="jennyandme/" cardPackExt=".jpg">Jenny&Me</button>
+                        <button type="button" class="btn btn-sm btn-info cardPack" id="christmas/" cardPackExt=".jpg">Christmas</button>
+                        <button type="button" class="btn btn-sm btn-info cardPack" id="beach/" cardPackExt=".jpeg">Beach</button>
+                        <button type="button" class="btn btn-sm btn-info cardPack" id="landmarks/" cardPackExt=".jpg">Landmarks</button>
+                        <button type="button" class="btn btn-sm btn-info cardPack" id="jennyandme/" cardPackExt=".jpg">Jenny&Me</button>
                         <br>
                         </h3>
                     </div>
                     <div class="buttonChoices" id="diff">
                         <h3>Choose Difficulty...
                         <button type="button" class="btn btn-sm btn-primary difficulty" id="level1">LVL 1</button>
-                        <button type="button" class="btn btn-sm btn-primary difficulty" id="level2">LVL 2</button>
-                        <button type="button" class="btn btn-sm btn-primary difficulty" id="level3">LVL 3</button>
-                        <button type="button" class="btn btn-sm btn-primary difficulty" id="level4">LVL 4</button>
-                        <button type="button" class="btn btn-sm btn-primary difficulty" id="level5">LVL 5</button>
+                        <button type="button" class="btn btn-sm btn-primary difficulty buttonSpacing" id="level2">LVL 2</button>
+                        <button type="button" class="btn btn-sm btn-primary difficulty buttonSpacing" id="level3">LVL 3</button>
+                        <button type="button" class="btn btn-sm btn-primary difficulty buttonSpacing" id="level4">LVL 4</button>
+                        <button type="button" class="btn btn-sm btn-primary difficulty buttonSpacing" id="level5">LVL 5</button>
                         <br>
-                        <button type="button" class="btn btn-sm btn-primary difficulty" id="level21">LVL 2-1</button>
+                        <button type="button" class="btn btn-sm btn-danger difficulty level6button" id="level6">LVL 6-Match 3</button>
+                        <button type="button" class="btn btn-sm btn-danger difficulty level7button" id="level7">LVL 7-Match 3</button>
+                        <button type="button" class="btn btn-sm btn-danger difficulty level7button" id="level7">LVL 8-Match 3</button>
                         </h3>
                     </div>
                     <button type="button" class="btn btn-lg btn-primary" id="playAgain">Play Again?</button>
@@ -191,13 +199,13 @@
 
             <!-- This row has 6 ornaments  -->
             <div class="col-md-12 ornaments">
-                <img class="ornamentRow fifthOrnament clickable" id="15" solved="no" srcFile="assets/images/ornament4.png" src="assets/images/ornament4.png">
-                <img class="ornamentRow otherOrnaments clickable" id="16" solved="no" srcFile="assets/images/ornament3.png" src="assets/images/ornament3.png">
-                <img class="ornamentRow otherOrnaments clickable" id="17" solved="no" srcFile="assets/images/ornament5.png" src="assets/images/ornament5.png">
-                <img class="ornamentRow otherOrnaments clickable" id="18" solved="no" srcFile="assets/images/ornament3.png" src="assets/images/ornament3.png">
-                <img class="ornamentRow otherOrnaments clickable" id="19" solved="no" srcFile="assets/images/ornament1.png" src="assets/images/ornament1.png">
-                <img class="ornamentRow otherOrnaments clickable" id="20" solved="no" srcFile="assets/images/ornament2.png" src="assets/images/ornament2.png">
-                <img class="ornamentRow otherOrnaments clickable lastOrnamentRow" id="21" solved="no" srcFile="assets/images/ornament5.png" src="assets/images/ornament5.png">
+                <img class="ornamentRow fifthOrnament clickable bottomRow" id="15" solved="no" srcFile="assets/images/ornament4.png" src="assets/images/ornament4.png">
+                <img class="ornamentRow otherOrnaments clickable bottomRow" id="16" solved="no" srcFile="assets/images/ornament3.png" src="assets/images/ornament3.png">
+                <img class="ornamentRow otherOrnaments clickable bottomRow" id="17" solved="no" srcFile="assets/images/ornament5.png" src="assets/images/ornament5.png">
+                <img class="ornamentRow otherOrnaments clickable bottomRow" id="18" solved="no" srcFile="assets/images/ornament3.png" src="assets/images/ornament3.png">
+                <img class="ornamentRow otherOrnaments clickable bottomRow" id="19" solved="no" srcFile="assets/images/ornament1.png" src="assets/images/ornament1.png">
+                <img class="ornamentRow otherOrnaments clickable bottomRow" id="20" solved="no" srcFile="assets/images/ornament2.png" src="assets/images/ornament2.png">
+                <img class="ornamentRow otherOrnaments clickable bottomRow lastOrnamentRow" id="21" solved="no" srcFile="assets/images/ornament5.png" src="assets/images/ornament5.png">
             </div>
             <img id="tree" src="assets/images/tree.png">
             
