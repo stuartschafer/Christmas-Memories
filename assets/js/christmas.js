@@ -301,72 +301,80 @@ $(document).ready(function() {
         // console.log(difficultyChosen);
         if (difficultyChosen === true) {
             alreadySolved = $(this).attr("solved");
+            let clickedOnSameImage = $(this).attr("id");
+            console.log("firstPicId = " + firstPicId);
+            console.log("secondPicId = " + secondPicId);
+            console.log("clickedOnSameImage = " + clickedOnSameImage);
 
-            // This checks to see if the game has begun. If it hasn't, then the game timer starts
-            if (gameStarted === false) {
-                playerTime();
-                gameStarted = true;
-            }
+            // This makes sure the user didn't click on the same image
+            if (clickedOnSameImage != firstPicId && clickedOnSameImage != secondPicId) {
+                // This checks to see if the game has begun. If it hasn't, then the game timer starts
+                if (gameStarted === false) {
+                    playerTime();
+                    gameStarted = true;
+                }
 
-            // nextTurn is so the player cannot click on the star and an ornament at the same time
-            // alreadySolved means the user has already solved that image
-            if (nextTurn === true && alreadySolved === "no") {
-                if (firstChoice === true) {
-                    turn = "second";
-                    firstChoice = false;
-                    firstPic = $(this).attr("match");
-                    firstPicId = $(this).attr("id");
-                    firstPicSrc = $("#" + firstPicId).attr("src");
-                    firstPicRotate = $(this).attr("rotate");
-                    $("#" + firstPicId).attr("src", "assets/images/cardsets/" + cardPack + firstPic + cardPackExt);
-                    $("#" + firstPicId).addClass("largerImg");
-                    $("#" + firstPicId).css("transform", "rotate(" + firstPicRotate + "deg) scale(1.5)");
-                } else if (turn === "second") {
-                    secondPic = $(this).attr("match");
-                    secondPicId = $(this).attr("id");
-                    secondPicSrc = $("#" + secondPicId).attr("src");
-                    secondPicRotate = $(this).attr("rotate");
-                    $("#" + secondPicId).attr("src", "assets/images/cardsets/" + cardPack + secondPic + cardPackExt);
-                    $("#" + secondPicId).addClass("largerImg");
-                    $("#" + secondPicId).css("transform", "rotate(" + secondPicRotate + "deg) scale(1.5)");
-                    
-                    if (difficulty != "match3") {
-                        // This checks to see if the 2 pictures match each other
-                        if (firstPic === secondPic) {
-                            madeMatch = true;
-                            correct++;
+
+                // nextTurn is so the player cannot click on the star and an ornament at the same time
+                // alreadySolved means the user has already solved that image
+                if (nextTurn === true && alreadySolved === "no") {
+                    if (firstChoice === true) {
+                        turn = "second";
+                        firstChoice = false;
+                        firstPic = $(this).attr("match");
+                        firstPicId = $(this).attr("id");
+                        firstPicSrc = $("#" + firstPicId).attr("src");
+                        firstPicRotate = $(this).attr("rotate");
+                        $("#" + firstPicId).attr("src", "assets/images/cardsets/" + cardPack + firstPic + cardPackExt);
+                        $("#" + firstPicId).addClass("largerImg");
+                        $("#" + firstPicId).css("transform", "rotate(" + firstPicRotate + "deg) scale(1.5)");
+                    } else if (turn === "second") {
+                        secondPic = $(this).attr("match");
+                        secondPicId = $(this).attr("id");
+                        secondPicSrc = $("#" + secondPicId).attr("src");
+                        secondPicRotate = $(this).attr("rotate");
+                        $("#" + secondPicId).attr("src", "assets/images/cardsets/" + cardPack + secondPic + cardPackExt);
+                        $("#" + secondPicId).addClass("largerImg");
+                        $("#" + secondPicId).css("transform", "rotate(" + secondPicRotate + "deg) scale(1.5)");
+                        
+                        if (difficulty != "match3") {
+                            // This checks to see if the 2 pictures match each other
+                            if (firstPic === secondPic) {
+                                madeMatch = true;
+                                correct++;
+                            }
+                            nextTurn = false;
+                            time = 75;
+                            pauseTime();
+                            
+                            if (correct === 10) {
+                                endGame();
+                            }
+                        } else {
+                            turn = "third";
+                        }
+                    } else {
+                        thirdPic = $(this).attr("match");
+                        thirdPicId = $(this).attr("id");
+                        thirdPicSrc = $("#" + thirdPicId).attr("src");
+                        thirdPicRotate = $(this).attr("rotate");
+                        $("#" + thirdPicId).attr("src", "assets/images/cardsets/" + cardPack + thirdPic + cardPackExt);
+                        $("#" + thirdPicId).addClass("largerImg");
+                        $("#" + thirdPicId).css("transform", "rotate(" + thirdPicRotate + "deg) scale(1.5)");
+
+                        if (firstPic === secondPic && firstPic === thirdPic && secondPic === thirdPic) {
+                                madeMatch = true;
+                                correct++;
                         }
                         nextTurn = false;
                         time = 75;
                         pauseTime();
                         
-                        if (correct === 10) {
+                        if (correct === 7) {
                             endGame();
                         }
-                    } else {
-                        turn = "third";
-                    }
-                } else {
-                    thirdPic = $(this).attr("match");
-                    thirdPicId = $(this).attr("id");
-                    thirdPicSrc = $("#" + thirdPicId).attr("src");
-                    thirdPicRotate = $(this).attr("rotate");
-                    $("#" + thirdPicId).attr("src", "assets/images/cardsets/" + cardPack + thirdPic + cardPackExt);
-                    $("#" + thirdPicId).addClass("largerImg");
-                    $("#" + thirdPicId).css("transform", "rotate(" + thirdPicRotate + "deg) scale(1.5)");
-
-                    if (firstPic === secondPic && firstPic === thirdPic && secondPic === thirdPic) {
-                            madeMatch = true;
-                            correct++;
-                    }
-                    nextTurn = false;
-                    time = 75;
-                    pauseTime();
-                    
-                    if (correct === 7) {
-                        endGame();
-                    }
-                }                
+                    }                
+                }
             }
         }
     });
